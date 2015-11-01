@@ -1,3 +1,3 @@
 # Algorithm
 
-Algorithms implemented in Java. Most are from CLRS and *Data Structures and Algorithm Analysis in Java*.
+Algorithms implemented in Java. Most code are based on *CLRS* and *Data Structures and Algorithm Analysis in Java*.
