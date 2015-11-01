@@ -1,5 +1,3 @@
-package RedBlackTree;
-
 /**
  * Created by Ethan on 15/10/27.
  */
@@ -32,7 +30,6 @@ public class RedBlackTree {
             this.color = RedBlackTree.BLACK;
         }
     }
-
 
     private RedBlackNode root;
     private RedBlackNode nullNode;

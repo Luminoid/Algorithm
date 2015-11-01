@@ -119,7 +119,7 @@ public class BTree {
      * @param n the node that roots the subtree
      */
     public void bTreePrintTree(BNode n, int level) {
-
+        System.out.println();
     }
 
     private void bTreeSplitChild(BNode x, int i){
