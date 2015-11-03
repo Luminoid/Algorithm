@@ -375,6 +375,7 @@ public class BTree {
         Data data19 = new Data("z", "zzz");
         Data data20 = new Data("e", "eee");
 
+        // Test insert
         bTree.bTreeInsert(data1);
         bTree.bTreeInsert(data2);
         bTree.bTreeInsert(data3);
@@ -396,14 +397,18 @@ public class BTree {
         bTree.bTreeInsert(data19);
         bTree.bTreeInsert(data20);
 
-        Data searchData = bTree.bTreeSearch("v");
-        if (searchData != null) {
-            System.out.println(searchData.satellite);
-        }
-
         bTree.bTreePrintTree();
         System.out.println("");
 
+        // Test search
+        Data searchData = bTree.bTreeSearch("v");
+        if (searchData != null) {
+            System.out.println(searchData.satellite+"\n");
+        }else {
+            System.out.println("No result!\n");
+        }
+
+        // Test delete
         bTree.bTreeDelete("y");
         bTree.bTreeDelete("w");
         bTree.bTreeDelete("q");

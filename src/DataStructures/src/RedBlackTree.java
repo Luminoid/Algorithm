@@ -50,6 +50,10 @@ public class RedBlackTree {
         root.parentNode = nullNode;
     }
 
+    public RedBlackNode rbTreeSearch(String s){
+        return rbTreeSearch(this.root, s);
+    }
+
     private RedBlackNode rbTreeSearch(RedBlackNode n, String s) {
         if (n == nullNode | s.equals(n.key)) {
             return n;
@@ -141,7 +145,8 @@ public class RedBlackTree {
         x.parentNode = y;
     }
 
-    public void rbInsert(RedBlackNode z) {
+    public void rbInsert(String s) {
+        RedBlackNode z = new RedBlackNode(s);
         RedBlackNode y = this.nullNode;
         RedBlackNode x = this.root;
         while (x != this.nullNode) {
@@ -215,7 +220,8 @@ public class RedBlackTree {
         v.parentNode = u.parentNode;
     }
 
-    public void rbDelete(RedBlackNode z) {
+    public void rbDelete(String s) {
+        RedBlackNode z = this.rbTreeSearch(s);
         RedBlackNode y = z;
         RedBlackNode x;
         int yOriginalColor = y.color;
@@ -230,7 +236,7 @@ public class RedBlackTree {
             yOriginalColor = y.color;
             x = y.rightNode;
             if (y.parentNode == z) {
-                x.parentNode = z;
+                x.parentNode = y;
             } else {
                 rbTransplant(y, y.rightNode);
                 y.rightNode = z.rightNode;
@@ -304,33 +310,38 @@ public class RedBlackTree {
     public static void main(String[] args) {
         RedBlackTree t = new RedBlackTree();
 
-        RedBlackNode n1 = new RedBlackNode("a");
-        RedBlackNode n2 = new RedBlackNode("b");
-        RedBlackNode n3 = new RedBlackNode("c");
-        RedBlackNode n4 = new RedBlackNode("aa");
-        RedBlackNode n5 = new RedBlackNode("ab");
-        RedBlackNode n6 = new RedBlackNode("ac");
-        RedBlackNode n7 = new RedBlackNode("ba");
-        RedBlackNode n8 = new RedBlackNode("bb");
-        RedBlackNode n9 = new RedBlackNode("bc");
-        RedBlackNode n10 = new RedBlackNode("d");
-
-        t.rbInsert(n1);
-        t.rbInsert(n2);
-        t.rbInsert(n3);
-        t.rbInsert(n4);
-        t.rbInsert(n5);
-        t.rbInsert(n6);
-        t.rbInsert(n7);
-        t.rbInsert(n8);
-        t.rbInsert(n9);
-        t.rbInsert(n10);
+        // Test insert
+        t.rbInsert("j");
+        t.rbInsert("b");
+        t.rbInsert("l");
+        t.rbInsert("d");
+        t.rbInsert("f");
+        t.rbInsert("h");
+        t.rbInsert("a");
+        t.rbInsert("i");
+        t.rbInsert("g");
+        t.rbInsert("c");
+        t.rbInsert("k");
+        t.rbInsert("e");
         t.rbPrintTree();
         System.out.println("");
 
-        t.rbDelete(n1);
-        t.rbDelete(n4);
-        t.rbDelete(n7);
+        // Test search
+        RedBlackNode node = t.rbTreeSearch("d");
+        if (node.key!=null){
+            System.out.println(node.key+"\n");
+        }else {
+            System.out.println("No result!\n");
+        }
+
+        t.rbDelete("c");
+        t.rbDelete("b");
+        t.rbDelete("i");
+        t.rbDelete("d");
+        t.rbDelete("j");
+        t.rbDelete("k");
+        t.rbDelete("h");
+
         t.rbPrintTree();
     }
 }
