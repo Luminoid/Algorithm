@@ -11,7 +11,8 @@ public class RedBlackTree {
     private static int level = 0; // tree height
 
     private static class RedBlackNode {
-        String key; // The data in the node
+        String key; // The key value in the node
+        String satellite; // The satellite value in the node
         RedBlackNode leftNode; // left child
         RedBlackNode rightNode; // right child
         RedBlackNode parentNode; // parent
@@ -19,11 +20,16 @@ public class RedBlackTree {
 
         // Constructors
         RedBlackNode(String key) {
-            this(key, null, null, null);
+            this(key, "", null, null, null);
         }
 
-        RedBlackNode(String key, RedBlackNode leftNode, RedBlackNode rightNode, RedBlackNode parentNode) {
+        RedBlackNode(String key, String satellite) {
+            this(key, satellite, null, null, null);
+        }
+
+        RedBlackNode(String key, String satellite, RedBlackNode leftNode, RedBlackNode rightNode, RedBlackNode parentNode) {
             this.key = key;
+            this.satellite = satellite;
             this.leftNode = leftNode;
             this.rightNode = rightNode;
             this.parentNode = parentNode;
@@ -74,15 +80,17 @@ public class RedBlackTree {
      *
      * @param n the node that roots the subtree
      */
-    public void rbPrintTree(RedBlackNode n, int level) {
+    private void rbPrintTree(RedBlackNode n, int level) {
         if (n != nullNode) {
             rbPrintTree(n.leftNode, (level + 1));
-            if (n.leftNode==this.nullNode){
-                System.out.println(n.leftNode.key + "\tLevel: " + (level+1) + " Parent: " + n.key +"\t\tColor: " + BLACK);
+            // left leaf node
+            if (n.leftNode == this.nullNode) {
+                System.out.println(n.leftNode.key + "\tLevel: " + (level + 1) + " Parent: " + n.key + "\t\tColor: " + BLACK);
             }
-            System.out.println(n.key + "\tLevel: " + level + " Parent: " + n.parentNode.key +"\t\tColor: " + n.color);
-            if (n.rightNode==this.nullNode){
-                System.out.println(n.rightNode.key + "\tLevel: " + (level+1) + " Parent: " + n.key +"\t\tColor: " + BLACK);
+            System.out.println(n.key + "\tLevel: " + level + " Parent: " + n.parentNode.key + "\t\tColor: " + n.color);
+            // right leaf node
+            if (n.rightNode == this.nullNode) {
+                System.out.println(n.rightNode.key + "\tLevel: " + (level + 1) + " Parent: " + n.key + "\t\tColor: " + BLACK);
             }
             rbPrintTree(n.rightNode, (level + 1));
         }
