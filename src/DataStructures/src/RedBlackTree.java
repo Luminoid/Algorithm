@@ -83,20 +83,48 @@ public class RedBlackTree {
      * Internal method to print a subtree by inorder traversal
      *
      * @param n the node that roots the subtree
+     * @param level tree height
      */
     private void rbPrintTree(RedBlackNode n, int level) {
         if (n != nullNode) {
-            rbPrintTree(n.leftNode, (level + 1));
             // left leaf node
             if (n.leftNode == this.nullNode) {
                 System.out.println(n.leftNode.key + "\tLevel: " + (level + 1) + " Parent: " + n.key + "\t\tColor: " + BLACK);
+            }else {
+                rbPrintTree(n.leftNode, (level + 1));
             }
             System.out.println(n.key + "\tLevel: " + level + " Parent: " + n.parentNode.key + "\t\tColor: " + n.color);
             // right leaf node
             if (n.rightNode == this.nullNode) {
                 System.out.println(n.rightNode.key + "\tLevel: " + (level + 1) + " Parent: " + n.key + "\t\tColor: " + BLACK);
+            }else {
+                rbPrintTree(n.rightNode, (level + 1));
             }
-            rbPrintTree(n.rightNode, (level + 1));
+        }
+    }
+
+    /**
+     * Preorder tree walk
+     */
+    public void rbPreorderTreeWalk(){
+        rbPreorderTreeWalk(this.root, 0);
+    }
+
+    private void rbPreorderTreeWalk(RedBlackNode n, int level){
+        if (n != nullNode) {
+            System.out.println(n.key + "\tLevel: " + level + " Parent: " + n.parentNode.key + "\t\tColor: " + n.color);
+            // left leaf node
+            if (n.leftNode == this.nullNode) {
+                System.out.println(n.leftNode.key + "\tLevel: " + (level + 1) + " Parent: " + n.key + "\t\tColor: " + BLACK);
+            }else {
+                rbPreorderTreeWalk(n.leftNode, (level + 1));
+            }
+            // right leaf node
+            if (n.rightNode == this.nullNode) {
+                System.out.println(n.rightNode.key + "\tLevel: " + (level + 1) + " Parent: " + n.key + "\t\tColor: " + BLACK);
+            }else {
+                rbPreorderTreeWalk(n.rightNode, (level + 1));
+            }
         }
     }
 
@@ -323,15 +351,19 @@ public class RedBlackTree {
         t.rbInsert("c");
         t.rbInsert("k");
         t.rbInsert("e");
+
+        System.out.println("Inorder tree walk: ");
         t.rbPrintTree();
-        System.out.println("");
+        System.out.println("\nPreorder tree walk:");
+        t.rbPreorderTreeWalk();
 
         // Test search
+        System.out.println("\nSearch the node d's key:");
         RedBlackNode node = t.rbTreeSearch("d");
         if (node.key!=null){
-            System.out.println(node.key+"\n");
+            System.out.println(node.key);
         }else {
-            System.out.println("No result!\n");
+            System.out.println("No result!");
         }
 
         t.rbDelete("c");
@@ -342,6 +374,7 @@ public class RedBlackTree {
         t.rbDelete("k");
         t.rbDelete("h");
 
+        System.out.println("\nAfter deletion");
         t.rbPrintTree();
     }
 }

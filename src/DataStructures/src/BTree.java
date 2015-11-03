@@ -136,8 +136,8 @@ public class BTree {
     /**
      * Print the tree contents by preorder tree walk
      */
-    public void bTreePrintTree() {
-        bTreePrintTree(root, 0, 0);
+    public void bTreePreorderTreeWalk() {
+        bTreePreorderTreeWalk(root, 0, 0);
     }
 
     /**
@@ -145,7 +145,7 @@ public class BTree {
      *
      * @param node the node that roots the subtree
      */
-    private void bTreePrintTree(BNode node, int level, int nthChild) {
+    private void bTreePreorderTreeWalk(BNode node, int level, int nthChild) {
         System.out.print("Level " + level + " Nth-child: " + nthChild + " Key: |");
         for (int i = 0; i < node.n; i++) {
             System.out.print(node.data.get(i).key + "|");
@@ -153,7 +153,32 @@ public class BTree {
         System.out.println("");
         if (!node.isLeaf) {
             for (int i = 0; i < (node.n + 1); i++) {
-                bTreePrintTree(node.children.get(i), (level + 1), i);
+                bTreePreorderTreeWalk(node.children.get(i), (level + 1), i);
+            }
+        }
+    }
+
+    /**
+     * Inorder tree walk
+     */
+    public void bTreeInorderTreeWalk() {
+        bTreeInorderTreeWalk(root, 0, 0);
+    }
+
+    private void bTreeInorderTreeWalk(BNode node, int level, int nthChild) {
+        int i;
+        for (i = 0; i < node.n; i++) {
+            if (!node.isLeaf) {
+                bTreeInorderTreeWalk(node.children.get(i), (level + 1), i);
+                System.out.println(node.data.get(i).key + " Level: " + level + " Nth-child: " + i);
+                if(i==node.n-1){
+                    bTreeInorderTreeWalk(node.children.get(i+1), (level + 1), i+1);
+                }
+            } else {
+                for (int j = 0; j < node.n; j++) {
+                    System.out.println(node.data.get(j).key + " Level: " + level + " Nth-child: " + j);
+                }
+                break;
             }
         }
     }
@@ -268,8 +293,8 @@ public class BTree {
                     }
                     node.data.remove(i);
                     node.children.remove(i + 1);
-                    node.n-=1;
-                    bTreeDelete(node.children.get(i),s);
+                    node.n -= 1;
+                    bTreeDelete(node.children.get(i), s);
                 }
             }
         } else if (node.isLeaf) { // delete fail
@@ -303,7 +328,7 @@ public class BTree {
                 } else { // both brother of node's children[i] has only t-1 values
                     if (i >= 1) { // combine children with left brother
                         node.children.get(i - 1).data.addLast(node.data.get(i - 1));
-                        node.children.get(i-1).n+=1;
+                        node.children.get(i - 1).n += 1;
                         for (int j = 0; j < node.children.get(i).n; j++) {
                             node.children.get(i - 1).data.addLast(node.children.get(i).data.getFirst());
                             if (!node.children.get(i - 1).isLeaf) {
@@ -322,7 +347,7 @@ public class BTree {
                         node.data.remove(i - 1);
                         node.children.remove(i);
                         node.n -= 1;
-                        i-=1;
+                        i -= 1;
                     } else { // combine with children with right brother
                         node.children.get(i).data.addLast(node.data.get(i));
                         for (int j = 0; j < node.children.get(i + 1).n; j++) {
@@ -397,15 +422,18 @@ public class BTree {
         bTree.bTreeInsert(data19);
         bTree.bTreeInsert(data20);
 
-        bTree.bTreePrintTree();
-        System.out.println("");
+        System.out.println("Preorder tree walk: ");
+        bTree.bTreePreorderTreeWalk();
+        System.out.println("\nInorder tree walk: ");
+        bTree.bTreeInorderTreeWalk();
 
         // Test search
+        System.out.println("\nSearch the node v's satellite data: ");
         Data searchData = bTree.bTreeSearch("v");
         if (searchData != null) {
-            System.out.println(searchData.satellite+"\n");
-        }else {
-            System.out.println("No result!\n");
+            System.out.println(searchData.satellite);
+        } else {
+            System.out.println("No result!");
         }
 
         // Test delete
@@ -417,6 +445,8 @@ public class BTree {
         bTree.bTreeDelete("b");
         bTree.bTreeDelete("h");
         bTree.bTreeDelete("p");
-        bTree.bTreePrintTree();
+
+        System.out.println("\nAfter deletion: ");
+        bTree.bTreePreorderTreeWalk();
     }
 }
