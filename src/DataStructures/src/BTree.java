@@ -162,17 +162,17 @@ public class BTree {
      * Inorder tree walk
      */
     public void bTreeInorderTreeWalk() {
-        bTreeInorderTreeWalk(root, 0, 0);
+        bTreeInorderTreeWalk(root, 0);
     }
 
-    private void bTreeInorderTreeWalk(BNode node, int level, int nthChild) {
+    private void bTreeInorderTreeWalk(BNode node, int level) {
         int i;
         for (i = 0; i < node.n; i++) {
             if (!node.isLeaf) {
-                bTreeInorderTreeWalk(node.children.get(i), (level + 1), i);
+                bTreeInorderTreeWalk(node.children.get(i), (level + 1));
                 System.out.println(node.data.get(i).key + " Level: " + level + " Nth-child: " + i);
                 if(i==node.n-1){
-                    bTreeInorderTreeWalk(node.children.get(i+1), (level + 1), i+1);
+                    bTreeInorderTreeWalk(node.children.get(i+1), (level + 1));
                 }
             } else {
                 for (int j = 0; j < node.n; j++) {
@@ -235,12 +235,20 @@ public class BTree {
             while (i >= 0 && (data.key).compareTo(x.data.get(i).key) < 0) {
                 i--;
             }
+            if (i>=0 && (data.key).compareTo(x.data.get(i).key) == 0){
+                System.out.println("Insertion failed: duplicated data");
+                return;
+            }
             x.data.add(i + 1, data);
             x.n += 1;
             diskWrite(x);
         } else {
             while (i >= 0 && (data.key).compareTo(x.data.get(i).key) < 0) {
                 i--;
+            }
+            if (i>=0 && (data.key).compareTo(x.data.get(i).key) == 0){
+                System.out.println("Insertion failed: duplicated data");
+                return;
             }
             i++;
             diskRead(x.children.get(i));
@@ -298,7 +306,7 @@ public class BTree {
                 }
             }
         } else if (node.isLeaf) { // delete fail
-            System.out.println("Delete error: No such value!");
+            System.out.println("Deletion failed: No such data");
         } else { // case 3: if node's children[i] has only t-1 key values
             if (node.children.get(i).n == t - 1) {
                 if (i >= 1 && node.children.get(i - 1).n >= t) { // node's children[i] has a brother of more than t-1 values
@@ -421,6 +429,7 @@ public class BTree {
         bTree.bTreeInsert(data18);
         bTree.bTreeInsert(data19);
         bTree.bTreeInsert(data20);
+        bTree.bTreeInsert(data20); // duplicated insertion
 
         System.out.println("Preorder tree walk: ");
         bTree.bTreePreorderTreeWalk();
@@ -445,6 +454,7 @@ public class BTree {
         bTree.bTreeDelete("b");
         bTree.bTreeDelete("h");
         bTree.bTreeDelete("p");
+        bTree.bTreeDelete("p"); // duplicated deletion
 
         System.out.println("\nAfter deletion: ");
         bTree.bTreePreorderTreeWalk();

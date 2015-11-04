@@ -55,7 +55,7 @@ public class RedBlackTree {
     }
 
     private RedBlackNode rbTreeSearch(RedBlackNode n, String s) {
-        if (n == nullNode | s.equals(n.key)) {
+        if (n == nullNode || s.equals(n.key)) {
             return n;
         }
         if (s.compareTo(n.key) < 0) {
@@ -181,8 +181,11 @@ public class RedBlackTree {
             y = x;
             if ((z.key).compareTo(x.key) < 0) {
                 x = x.leftNode;
-            } else {
+            } else if ((z.key).compareTo(x.key) > 0){
                 x = x.rightNode;
+            }else{ // (z.data.key).compareTo(x.data.key) = 0
+                System.out.println("Insertion failed: duplicated data");
+                return;
             }
         }
         z.parentNode = y;
@@ -250,6 +253,10 @@ public class RedBlackTree {
 
     public void rbDelete(String s) {
         RedBlackNode z = this.rbTreeSearch(s);
+        if (z==this.nullNode){
+            System.out.println("Deletion failed: No such data");
+            return;
+        }
         RedBlackNode y = z;
         RedBlackNode x;
         int yOriginalColor = y.color;
@@ -336,45 +343,48 @@ public class RedBlackTree {
     }
 
     public static void main(String[] args) {
-        RedBlackTree t = new RedBlackTree();
+        RedBlackTree rbTree = new RedBlackTree();
 
         // Test insert
-        t.rbInsert("j");
-        t.rbInsert("b");
-        t.rbInsert("l");
-        t.rbInsert("d");
-        t.rbInsert("f");
-        t.rbInsert("h");
-        t.rbInsert("a");
-        t.rbInsert("i");
-        t.rbInsert("g");
-        t.rbInsert("c");
-        t.rbInsert("k");
-        t.rbInsert("e");
+        rbTree.rbInsert("j");
+        rbTree.rbInsert("b");
+        rbTree.rbInsert("l");
+        rbTree.rbInsert("d");
+        rbTree.rbInsert("f");
+        rbTree.rbInsert("h");
+        rbTree.rbInsert("a");
+        rbTree.rbInsert("i");
+        rbTree.rbInsert("g");
+        rbTree.rbInsert("c");
+        rbTree.rbInsert("k");
+        rbTree.rbInsert("e");
+        rbTree.rbInsert("e"); // duplicated insertion
 
         System.out.println("Inorder tree walk: ");
-        t.rbPrintTree();
+        rbTree.rbPrintTree();
         System.out.println("\nPreorder tree walk:");
-        t.rbPreorderTreeWalk();
+        rbTree.rbPreorderTreeWalk();
 
         // Test search
-        System.out.println("\nSearch the node d's key:");
-        RedBlackNode node = t.rbTreeSearch("d");
+        System.out.print("\nSearch the node d's key: ");
+        RedBlackNode node = rbTree.rbTreeSearch("d");
         if (node.key!=null){
-            System.out.println(node.key);
+            System.out.println(node.key + "\n");
         }else {
-            System.out.println("No result!");
+            System.out.println("No result!\n");
         }
 
-        t.rbDelete("c");
-        t.rbDelete("b");
-        t.rbDelete("i");
-        t.rbDelete("d");
-        t.rbDelete("j");
-        t.rbDelete("k");
-        t.rbDelete("h");
+        // Test delete
+        rbTree.rbDelete("c");
+        rbTree.rbDelete("b");
+        rbTree.rbDelete("i");
+        rbTree.rbDelete("d");
+        rbTree.rbDelete("j");
+        rbTree.rbDelete("k");
+        rbTree.rbDelete("h");
+        rbTree.rbDelete("h"); // duplicated deletion
 
         System.out.println("\nAfter deletion");
-        t.rbPrintTree();
+        rbTree.rbPrintTree();
     }
 }

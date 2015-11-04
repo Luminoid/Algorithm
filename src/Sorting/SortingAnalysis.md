@@ -2,7 +2,7 @@
 | :------- | :------- | :------ | :------ | :------ |
 | Insertion sort | $\Theta(n^2)$ | $\Theta(n^2)$ | Yes | Yes |
 | Shell sort | $\Theta(n^2)$ |  | Yes | No |
-| Selection sort | $\Theta(n^2)$ | $\Theta(n^2)$ | Yes | Yes |
+| Selection sort | $\Theta(n^2)$ | $\Theta(n^2)$ | Yes | No |
 | Heapsort | $\Theta(nlgn)$ | $\Theta(nlgn)$ | Yes | No |
 | Bubble sort | $\Theta(n^2)$ | $\Theta(n^2)$ | Yes | Yes |
 | Quicksort | $\Theta(n^2)$ | $\Theta(nlgn)$ (expected) | Yes | No |
