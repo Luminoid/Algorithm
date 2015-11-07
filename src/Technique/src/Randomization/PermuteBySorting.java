@@ -9,7 +9,9 @@ public class PermuteBySorting {
 
     static int[] pArr; // random priority
 
-    // Sort
+    /**
+     * Sort
+     */
     private static int partition(int[] arr, int p, int r) {
         int x = pArr[r]; // pivot element
         int y = arr[r];
@@ -48,7 +50,10 @@ public class PermuteBySorting {
         quickSort(arr, 0, arr.length - 1);
     }
 
-    private static void permute(int[] arr){
+    /**
+     * Permute
+     */
+    public static void permute(int[] arr){
         int n = arr.length;
         pArr = new int[n];
         for (int i = 0; i < n; i++) {

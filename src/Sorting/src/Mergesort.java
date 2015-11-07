@@ -63,7 +63,7 @@ public class Mergesort {
      *
      * @param a an array of Comparable items.
      */
-    private static void mergeSort(int[] a) {
+    public static void mergeSort(int[] a) {
         mergeSort(a, 0, a.length - 1);
     }
 

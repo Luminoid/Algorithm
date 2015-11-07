@@ -6,7 +6,7 @@ import java.util.Arrays;
  * Created by Ethan on 15/10/27.
  */
 public class RandomizeInPlace {
-    private static void randomizeInPlace(int[] a){
+    public static void randomizeInPlace(int[] a){
         int n = a.length;
         int swap;
         int tmp;

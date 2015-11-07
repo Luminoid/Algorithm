@@ -4,7 +4,7 @@ import java.util.Arrays;
  * Created by Ethan on 15/10/24.
  */
 public class Bubblesort {
-    private static void bubbleSort(int[] arr) {
+    public static void bubbleSort(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
             for (int j = arr.length - 1; j > i; j--) {
                 if (arr[j] < arr[j - 1]) {
