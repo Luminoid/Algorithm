@@ -4,7 +4,7 @@ To improve the running time of sorting by combining quicksort with insertion sor
 Upon calling quicksort on a subarray with fewer than k elements, let it simply return without sorting the
  subarray. After the top-level call to quicksort returns, run insertion sort on the entire array to finish the sorting process.
 ## Expected running time: 
-$O(nk+nlg(n/k))$
+O(nk+nlg(n/k))
 ### Proof: 
 ![proofProcess](proofProcess.jpg)
 
