@@ -6,11 +6,6 @@ Upon calling quicksort on a subarray with fewer than k elements, let it simply r
 ## Expected running time: 
 $O(nk+nlg(n/k))$
 ### Proof: 
-$ T(n, k) = cn\cdot log_2({n\over k})+(ak^2+bk+c)\cdot {n\over k} = cn\cdot log_2({n\over k})+akn+\Theta (n) \sim O(kn+nlg({n\over k})) $
+![proofProcess](proofProcess.jpg)
 
-$$ \therefore T(n,k) =
-\begin{cases}
-\Theta (nlg({n\over k})), & \text{$k<lg({n\over k})$} \\
-\Theta (kn), & \text{$k>lg({n\over k})$}
-\end{cases}
-$$
+![proofResult](proofResult.jpg)
