@@ -17,7 +17,7 @@ public class Heapsort {
     }
 
     /**
-     * Internal method for heapsort that is used in deleteMax and buildHeap.
+     * Internal method for heapsort that is used in deleteMax and buildHeap.(Max Heapify)
      *
      * @param a an array of Comparable items.
      * @int i the position from which to percolate down.
@@ -62,7 +62,7 @@ public class Heapsort {
      * Test heapsort
      */
     public static void main(String[] args) {
-           int[] array = {12, 2, 3, 8, 5, 3, 1, 12};
+           int[] array = {12, 2, 3, 8, 5, 3, 1, 12, 19, 18};
            heapsort(array);
            System.out.println(Arrays.toString(array));
     }
