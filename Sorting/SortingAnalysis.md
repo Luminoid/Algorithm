@@ -6,9 +6,9 @@
 | Heapsort | $\Theta(nlgn)$ | $\Theta(nlgn)$ | Yes | No |
 | Bubble sort | $\Theta(n^2)$ | $\Theta(n^2)$ | Yes | Yes |
 | Quicksort | $\Theta(n^2)$ | $\Theta(nlgn)$ (expected) | Yes | No |
-| Counting sort | $\Theta(k+n)$ | $\Theta(k+n)$ |
-| Radix sort[^2] | $\Theta(d(n+k))$ | $\Theta(d(n+k))$ |  | Yes |
-| Bucket sort | $\Theta(n^2)$ | $\Theta(n)$ (average-case) |
+| Counting sort | $\Theta(k+n)$ | $\Theta(k+n)$ | No | Yes |
+| Radix sort[^2] | $\Theta(d(n+k))$ | $\Theta(d(n+k))$ | No  | Yes |
+| Bucket sort | $\Theta(n^2)$ | $\Theta(n)$ (average-case) | No | Yes |
 | Merge sort | $\Theta(nlgn)$ | $\Theta(nlgn)$ | No | Yes |
 
 [^1]: n: the number of items to sort.
