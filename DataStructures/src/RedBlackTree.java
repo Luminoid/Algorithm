@@ -73,7 +73,7 @@ public class RedBlackTree {
         }
     }
 
-    private RedBlackNode rbTreeMimimum(RedBlackNode n) {
+    private RedBlackNode rbTreeMinimum(RedBlackNode n) {
         while (n.leftNode != nullNode) {
             n = n.leftNode;
         }
@@ -98,29 +98,22 @@ public class RedBlackTree {
             // left leaf node
             if (n.leftNode == this.nullNode) {
                 System.out.println(n.leftNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key +
-                        "\t\tColor:" +
-                        " " +
-                        "" +
-                        BLACK);
+                        "\t\tColor:" + BLACK);
             } else {
                 rbPrintTree(n.leftNode, (level + 1));
             }
 
             if (n!=this.root){
-                System.out.println(n.data.key + "\tLevel: " + level + " Parent: " + n.parentNode.data.key + "\t\tColor: " + n
-                        .color);
+                System.out.println(n.data.key + "\tLevel: " + level + " Parent: " + n.parentNode.data.key + "\t\tColor: " +
+                        n.color);
             }else {
-                System.out.println(n.data.key + "\tLevel: " + level + " Parent: null" + "\t\tColor: " + n
-                        .color);
+                System.out.println(n.data.key + "\tLevel: " + level + " Parent: null" + "\t\tColor: " + n.color);
             }
 
             // right leaf node
             if (n.rightNode == this.nullNode) {
-                System.out.println(n.rightNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key +
-                        "\t\tColor:" +
-                        " " +
-                        "" +
-                        BLACK);
+                System.out.println(n.rightNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key +  "\t\tColor:"
+                        + BLACK);
             } else {
                 rbPrintTree(n.rightNode, (level + 1));
             }
@@ -138,27 +131,23 @@ public class RedBlackTree {
         if (n != nullNode) {
 
             if (n!=this.root){
-                System.out.println(n.data.key + "\tLevel: " + level + " Parent: " + n.parentNode.data.key + "\t\tColor: " + n
-                        .color);
+                System.out.println(n.data.key + "\tLevel: " + level + " Parent: " + n.parentNode.data.key + "\t\tColor: " +
+                        n.color);
             }else {
-                System.out.println(n.data.key + "\tLevel: " + level + " Parent: null" + "\t\tColor: " + n
-                        .color);
+                System.out.println(n.data.key + "\tLevel: " + level + " Parent: null" + "\t\tColor: " + n.color);
             }
 
             // left leaf node
             if (n.leftNode == this.nullNode) {
                 System.out.println(n.leftNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key +
-                        "\t\tColor: " +
-                        BLACK);
+                        "\t\tColor: " + BLACK);
             } else {
                 rbPreorderTreeWalk(n.leftNode, (level + 1));
             }
             // right leaf node
             if (n.rightNode == this.nullNode) {
                 System.out.println(n.rightNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key +
-                        "\t\tColor:" +
-                        " " +
-                        BLACK);
+                        "\t\tColor:" + BLACK);
             } else {
                 rbPreorderTreeWalk(n.rightNode, (level + 1));
             }
@@ -304,7 +293,7 @@ public class RedBlackTree {
             x = z.leftNode;
             rbTransplant(z, z.leftNode);
         } else {
-            y = rbTreeMimimum(z.rightNode);
+            y = rbTreeMinimum(z.rightNode);
             yOriginalColor = y.color;
             x = y.rightNode;
             if (y.parentNode == z) {
