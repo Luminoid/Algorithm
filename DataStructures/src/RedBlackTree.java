@@ -10,26 +10,34 @@ public class RedBlackTree {
     private static final int RED = 0;
     private static int level = 0; // tree height
 
+    public static class Data {
+        String key;
+        String satellite;
+
+        Data(String key) {
+            this(key, "");
+        }
+
+        Data(String key, String satellite) {
+            this.key = key;
+            this.satellite = satellite;
+        }
+    }
+
     private static class RedBlackNode {
-        String key; // The key value in the node
-        String satellite; // The satellite value in the node
+        Data data; // The data value in the node
         RedBlackNode leftNode; // left child
         RedBlackNode rightNode; // right child
         RedBlackNode parentNode; // parent
         int color; // color
 
         // Constructors
-        RedBlackNode(String key) {
-            this(key, "", null, null, null);
+        RedBlackNode(Data data) {
+            this(data, null, null, null);
         }
 
-        RedBlackNode(String key, String satellite) {
-            this(key, satellite, null, null, null);
-        }
-
-        RedBlackNode(String key, String satellite, RedBlackNode leftNode, RedBlackNode rightNode, RedBlackNode parentNode) {
-            this.key = key;
-            this.satellite = satellite;
+        RedBlackNode(Data data, RedBlackNode leftNode, RedBlackNode rightNode, RedBlackNode parentNode) {
+            this.data = data;
             this.leftNode = leftNode;
             this.rightNode = rightNode;
             this.parentNode = parentNode;
@@ -50,15 +58,15 @@ public class RedBlackTree {
         root.parentNode = nullNode;
     }
 
-    public RedBlackNode rbTreeSearch(String s){
+    public RedBlackNode rbTreeSearch(String s) {
         return rbTreeSearch(this.root, s);
     }
 
     private RedBlackNode rbTreeSearch(RedBlackNode n, String s) {
-        if (n == nullNode || s.equals(n.key)) {
+        if (n == nullNode || s.equals(n.data.key)) {
             return n;
         }
-        if (s.compareTo(n.key) < 0) {
+        if (s.compareTo(n.data.key) < 0) {
             return rbTreeSearch(n.leftNode, s);
         } else {
             return rbTreeSearch(n.rightNode, s);
@@ -82,22 +90,38 @@ public class RedBlackTree {
     /**
      * Internal method to print a subtree by inorder traversal
      *
-     * @param n the node that roots the subtree
+     * @param n     the node that roots the subtree
      * @param level tree height
      */
     private void rbPrintTree(RedBlackNode n, int level) {
         if (n != nullNode) {
             // left leaf node
             if (n.leftNode == this.nullNode) {
-                System.out.println(n.leftNode.key + "\tLevel: " + (level + 1) + " Parent: " + n.key + "\t\tColor: " + BLACK);
-            }else {
+                System.out.println(n.leftNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key +
+                        "\t\tColor:" +
+                        " " +
+                        "" +
+                        BLACK);
+            } else {
                 rbPrintTree(n.leftNode, (level + 1));
             }
-            System.out.println(n.key + "\tLevel: " + level + " Parent: " + n.parentNode.key + "\t\tColor: " + n.color);
+
+            if (n!=this.root){
+                System.out.println(n.data.key + "\tLevel: " + level + " Parent: " + n.parentNode.data.key + "\t\tColor: " + n
+                        .color);
+            }else {
+                System.out.println(n.data.key + "\tLevel: " + level + " Parent: null" + "\t\tColor: " + n
+                        .color);
+            }
+
             // right leaf node
             if (n.rightNode == this.nullNode) {
-                System.out.println(n.rightNode.key + "\tLevel: " + (level + 1) + " Parent: " + n.key + "\t\tColor: " + BLACK);
-            }else {
+                System.out.println(n.rightNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key +
+                        "\t\tColor:" +
+                        " " +
+                        "" +
+                        BLACK);
+            } else {
                 rbPrintTree(n.rightNode, (level + 1));
             }
         }
@@ -106,23 +130,36 @@ public class RedBlackTree {
     /**
      * Preorder tree walk
      */
-    public void rbPreorderTreeWalk(){
+    public void rbPreorderTreeWalk() {
         rbPreorderTreeWalk(this.root, 0);
     }
 
-    private void rbPreorderTreeWalk(RedBlackNode n, int level){
+    private void rbPreorderTreeWalk(RedBlackNode n, int level) {
         if (n != nullNode) {
-            System.out.println(n.key + "\tLevel: " + level + " Parent: " + n.parentNode.key + "\t\tColor: " + n.color);
+
+            if (n!=this.root){
+                System.out.println(n.data.key + "\tLevel: " + level + " Parent: " + n.parentNode.data.key + "\t\tColor: " + n
+                        .color);
+            }else {
+                System.out.println(n.data.key + "\tLevel: " + level + " Parent: null" + "\t\tColor: " + n
+                        .color);
+            }
+
             // left leaf node
             if (n.leftNode == this.nullNode) {
-                System.out.println(n.leftNode.key + "\tLevel: " + (level + 1) + " Parent: " + n.key + "\t\tColor: " + BLACK);
-            }else {
+                System.out.println(n.leftNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key +
+                        "\t\tColor: " +
+                        BLACK);
+            } else {
                 rbPreorderTreeWalk(n.leftNode, (level + 1));
             }
             // right leaf node
             if (n.rightNode == this.nullNode) {
-                System.out.println(n.rightNode.key + "\tLevel: " + (level + 1) + " Parent: " + n.key + "\t\tColor: " + BLACK);
-            }else {
+                System.out.println(n.rightNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key +
+                        "\t\tColor:" +
+                        " " +
+                        BLACK);
+            } else {
                 rbPreorderTreeWalk(n.rightNode, (level + 1));
             }
         }
@@ -173,17 +210,17 @@ public class RedBlackTree {
         x.parentNode = y;
     }
 
-    public void rbInsert(String s) {
-        RedBlackNode z = new RedBlackNode(s);
+    public void rbInsert(Data d) {
+        RedBlackNode z = new RedBlackNode(d);
         RedBlackNode y = this.nullNode;
         RedBlackNode x = this.root;
         while (x != this.nullNode) {
             y = x;
-            if ((z.key).compareTo(x.key) < 0) {
+            if ((z.data.key).compareTo(x.data.key) < 0) {
                 x = x.leftNode;
-            } else if ((z.key).compareTo(x.key) > 0){
+            } else if ((z.data.key).compareTo(x.data.key) > 0) {
                 x = x.rightNode;
-            }else{ // (z.data.key).compareTo(x.data.key) = 0
+            } else { // (z.data.key).compareTo(x.data.key) = 0
                 System.out.println("Insertion failed: duplicated data");
                 return;
             }
@@ -191,7 +228,7 @@ public class RedBlackTree {
         z.parentNode = y;
         if (y == this.nullNode) {
             this.root = z;
-        } else if ((z.key).compareTo(y.key) < 0) {
+        } else if ((z.data.key).compareTo(y.data.key) < 0) {
             y.leftNode = z;
         } else {
             y.rightNode = z;
@@ -253,7 +290,7 @@ public class RedBlackTree {
 
     public void rbDelete(String s) {
         RedBlackNode z = this.rbTreeSearch(s);
-        if (z==this.nullNode){
+        if (z == this.nullNode) {
             System.out.println("Deletion failed: No such data");
             return;
         }
@@ -346,19 +383,19 @@ public class RedBlackTree {
         RedBlackTree rbTree = new RedBlackTree();
 
         // Test insert
-        rbTree.rbInsert("j");
-        rbTree.rbInsert("b");
-        rbTree.rbInsert("l");
-        rbTree.rbInsert("d");
-        rbTree.rbInsert("f");
-        rbTree.rbInsert("h");
-        rbTree.rbInsert("a");
-        rbTree.rbInsert("i");
-        rbTree.rbInsert("g");
-        rbTree.rbInsert("c");
-        rbTree.rbInsert("k");
-        rbTree.rbInsert("e");
-        rbTree.rbInsert("e"); // duplicated insertion
+        rbTree.rbInsert(new Data("j"));
+        rbTree.rbInsert(new Data("b"));
+        rbTree.rbInsert(new Data("l"));
+        rbTree.rbInsert(new Data("d","ddd"));
+        rbTree.rbInsert(new Data("f"));
+        rbTree.rbInsert(new Data("h"));
+        rbTree.rbInsert(new Data("a"));
+        rbTree.rbInsert(new Data("i"));
+        rbTree.rbInsert(new Data("g"));
+        rbTree.rbInsert(new Data("c"));
+        rbTree.rbInsert(new Data("k"));
+        rbTree.rbInsert(new Data("e"));
+        rbTree.rbInsert(new Data("e")); // duplicated insertion
 
         System.out.println("Inorder tree walk: ");
         rbTree.rbPrintTree();
@@ -366,11 +403,11 @@ public class RedBlackTree {
         rbTree.rbPreorderTreeWalk();
 
         // Test search
-        System.out.print("\nSearch the node d's key: ");
+        System.out.print("\nSearch the node d's satellite data: ");
         RedBlackNode node = rbTree.rbTreeSearch("d");
-        if (node.key!=null){
-            System.out.println(node.key + "\n");
-        }else {
+        if (node.data != null) {
+            System.out.println(node.data.satellite + "\n");
+        } else {
             System.out.println("No result!\n");
         }
 
@@ -384,7 +421,7 @@ public class RedBlackTree {
         rbTree.rbDelete("h");
         rbTree.rbDelete("h"); // duplicated deletion
 
-        System.out.println("\nAfter deletion");
+        System.out.println("\nAfter deletion: ");
         rbTree.rbPrintTree();
     }
 }

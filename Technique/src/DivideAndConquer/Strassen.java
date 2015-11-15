@@ -109,7 +109,7 @@ public class Strassen {
         return c;
     }
 
-    private static int[][] strassenMatrixMul(int[][] a, int[][] b) {
+    public static int[][] strassenMatrixMul(int[][] a, int[][] b) {
         int k;
         int n = a.length;
         for (k = 0; n > 0; k++) {

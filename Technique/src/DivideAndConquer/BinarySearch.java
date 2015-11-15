@@ -19,7 +19,7 @@ public class BinarySearch {
         return -1;
     }
 
-    private static int iterativeBinarySearch(int[] arr, int v) {
+    public static int iterativeBinarySearch(int[] arr, int v) {
         return (iterativeBinarySearch(arr, v, 0, arr.length - 1));
     }
 
@@ -37,7 +37,7 @@ public class BinarySearch {
         }
     }
 
-    private static int recursiveBinaryTree(int[] arr, int v) {
+    public static int recursiveBinaryTree(int[] arr, int v) {
         return recursiveBinaryTree(arr, v, 0, arr.length - 1);
     }
 

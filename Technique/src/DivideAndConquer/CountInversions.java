@@ -46,7 +46,7 @@ public class CountInversions {
         }
     }
 
-    private static void countInversions(int[] arr) {
+    public static void countInversions(int[] arr) {
         countInversions(arr, 0, arr.length - 1);
     }
 

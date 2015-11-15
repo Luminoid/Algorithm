@@ -29,7 +29,10 @@ public class SelectIthSmallestElement {
         return partition(arr, p, r);
     }
 
-    private static int select(int[] a, int p, int r, int i) {
+    /**
+     * Selection in expected linear time
+     */
+    private static int randomizedSelect(int[] a, int p, int r, int i) {
         if (p == r) {
             return a[p];
         }
@@ -38,18 +41,18 @@ public class SelectIthSmallestElement {
         if (i == k) { // the pivot value is the answer
             return a[q];
         } else if (i < k) {
-            return select(a, p, q - 1, i);
+            return randomizedSelect(a, p, q - 1, i);
         } else {
-            return select(a, q + 1, r, i - k);
+            return randomizedSelect(a, q + 1, r, i - k);
         }
     }
 
-    public static int select(int[] a, int i) {
-        return select(a, 0, a.length - 1, i);
+    public static int randomizedSelect(int[] a, int i) {
+        return randomizedSelect(a, 0, a.length - 1, i);
     }
 
     public static void main(String[] args) {
         int[] array = {12, 2, 3, 8, 5, 3, 1, 17, 0};
-        System.out.println(select(array, 5));
+        System.out.println(randomizedSelect(array, 5));
     }
 }

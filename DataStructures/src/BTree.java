@@ -171,8 +171,8 @@ public class BTree {
             if (!node.isLeaf) {
                 bTreeInorderTreeWalk(node.children.get(i), (level + 1));
                 System.out.println(node.data.get(i).key + " Level: " + level + " Nth-child: " + i);
-                if(i==node.n-1){
-                    bTreeInorderTreeWalk(node.children.get(i+1), (level + 1));
+                if (i == node.n - 1) {
+                    bTreeInorderTreeWalk(node.children.get(i + 1), (level + 1));
                 }
             } else {
                 for (int j = 0; j < node.n; j++) {
@@ -235,7 +235,7 @@ public class BTree {
             while (i >= 0 && (data.key).compareTo(x.data.get(i).key) < 0) {
                 i--;
             }
-            if (i>=0 && (data.key).compareTo(x.data.get(i).key) == 0){
+            if (i >= 0 && (data.key).compareTo(x.data.get(i).key) == 0) {
                 System.out.println("Insertion failed: duplicated data");
                 return;
             }
@@ -246,7 +246,7 @@ public class BTree {
             while (i >= 0 && (data.key).compareTo(x.data.get(i).key) < 0) {
                 i--;
             }
-            if (i>=0 && (data.key).compareTo(x.data.get(i).key) == 0){
+            if (i >= 0 && (data.key).compareTo(x.data.get(i).key) == 0) {
                 System.out.println("Insertion failed: duplicated data");
                 return;
             }
@@ -370,8 +370,8 @@ public class BTree {
                             }
                             node.children.get(i + 1).n -= 1;
                         }
-                        node.data.remove(i - 1);
-                        node.children.remove(i);
+                        node.data.remove(i);
+                        node.children.remove(i + 1);
                         node.n -= 1;
                     }
                     if (this.root == node && node.n == 0) {

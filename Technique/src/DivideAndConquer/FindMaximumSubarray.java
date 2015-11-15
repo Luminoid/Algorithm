@@ -62,7 +62,7 @@ public class FindMaximumSubarray {
         }
     }
 
-    private static int findMaximumSubarray(int[] arr) {
+    public static int findMaximumSubarray(int[] arr) {
         int[] ret = findMaximumSubarray(arr, 0, arr.length - 1);
         return ret[2];
     }
