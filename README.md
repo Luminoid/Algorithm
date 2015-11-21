@@ -21,9 +21,10 @@ Involving algorithms implemented in Java. Most code are based on *CLRS* and *Dat
 
 ## Data Structures
 1. Trees
-    1. Binary Search Trees
-    2. Red-Black Trees
-    3. B-Trees
+    1. Binary Search Tree
+    2. Red-Black Tree
+    3. B-Tree
+    4. Order-statistic Tree
 
 ## Design and Analysis Techniques
 ### Divide-and-Conquer
@@ -40,6 +41,9 @@ Involving algorithms implemented in Java. Most code are based on *CLRS* and *Dat
 2. The on-line hiring problem
 
 ### Recurrences
+
+### Dynamic Programming
+1. Rod-cutting problem
 
 ## Other
 1. Finding minimum and maximum simultaneously
