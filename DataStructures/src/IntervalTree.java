@@ -416,14 +416,14 @@ public class IntervalTree {
         // Test search
         RedBlackNode node1 = iTree.intervalSearch(new Interval(22, 25));
         System.out.print("\nThe interval overlapped with [22, 25]: ");
-        if (node1.interval != null) {
+        if (node1 != iTree.nullNode) {
             System.out.println(intervalPrint(node1.interval));
         } else {
             System.out.println("No result!\n");
         }
         RedBlackNode node2 = iTree.intervalSearch(new Interval(31, 33));
         System.out.print("\nThe interval overlapped with [31, 33]: ");
-        if (node2.interval.high != Integer.MIN_VALUE) {
+        if (node2 != iTree.nullNode) {
             System.out.println(intervalPrint(node2.interval));
         } else {
             System.out.println("No result!\n");
