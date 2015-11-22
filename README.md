@@ -24,7 +24,8 @@ Involving algorithms implemented in Java. Most code are based on *CLRS* and *Dat
     1. Binary Search Tree
     2. Red-Black Tree
     3. B-Tree
-    4. Order-statistic Tree
+    4. Order-statistic Tree (Augmenting red-black trees)
+    5. Interval Tree (Augmenting red-black trees)
 
 ## Design and Analysis Techniques
 ### Divide-and-Conquer
