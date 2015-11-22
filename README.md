@@ -45,6 +45,7 @@ Involving algorithms implemented in Java. Most code are based on *CLRS* and *Dat
 
 ### Dynamic Programming
 1. Rod-cutting problem
+2. Matrix-chain multiplication
 
 ## Other
 1. Finding minimum and maximum simultaneously
