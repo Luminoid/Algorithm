@@ -27,7 +27,7 @@ public class RodCutting {
     public static void main(String[] args) {
         int[] p = {1, 5, 8, 9, 10, 17, 17, 20, 24, 30};
         for (int i = 1; i <= 10; i++) {
-            System.out.println("The optimal revenue: " + bottomUpCutRod(p, i));
+            System.out.println("The optimal revenue of length " + i + ": " + bottomUpCutRod(p, i));
         }
     }
 }
