@@ -29,7 +29,6 @@ public class MatrixChainMultiplication {
 
         StringBuilder ret = new StringBuilder();
         StringBuilder str = optimalParens(s, a, b, ret);
-        str.toString();
         System.out.println("The optimal parenthesization is: " + str);
         System.out.println("The minimum number of scalar multiplications is: " + m[a][b]);
     }
