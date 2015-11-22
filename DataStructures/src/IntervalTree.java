@@ -68,11 +68,7 @@ public class IntervalTree {
      * Whether two intervals are overlapped
      */
     public static boolean overlap(Interval i1, Interval i2) {
-        if (i1.low <= i2.high && i1.high >= i2.low) {
-            return true;
-        } else {
-            return false;
-        }
+        return (i1.low <= i2.high && i1.high >= i2.low);
     }
 
     /**
@@ -96,11 +92,7 @@ public class IntervalTree {
     /**
      * find a node in tree T whose interval overlaps interval i
      */
-    public RedBlackNode intervalSearch(Interval i) {
-        return intervalSearch(this.root, i);
-    }
-
-    private RedBlackNode intervalSearch(RedBlackNode n, Interval i) {
+    private RedBlackNode intervalSearch(Interval i) {
         RedBlackNode x = this.root;
         while (x != this.nullNode && !overlap(i, x.interval)) {
             if (x.leftNode != this.nullNode && x.leftNode.max >= i.low) {
