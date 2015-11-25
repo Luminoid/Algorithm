@@ -45,31 +45,21 @@ public class NQueens1 {
     private static void nQueens(boolean[][] chessboard, int row) {
         int size = chessboard.length;
         if (row == chessboard.length) {
-            // Array copy
-            boolean[][] chessboardCopy = new boolean[size][];
-            for (int j = 0; j < size; j++) {
-                chessboardCopy[j] = new boolean[size];
-                System.arraycopy(chessboard[j], 0, chessboardCopy[j], 0, size);
-            }
-            allSol.add(chessboardCopy);
+            allSol.add(chessboard);
         } else {
             for (int i = 0; i < size; i++) {
                 if (isValid(chessboard, row, i)) {
-                    // Array copy
-                    boolean[][] chessboardCopy = new boolean[size][];
-                    for (int j = 0; j < size; j++) {
-                        chessboardCopy[j] = new boolean[size];
-                        System.arraycopy(chessboard[j], 0, chessboardCopy[j], 0, size);
-                    }
-                    chessboardCopy[row][i] = true;
-                    nQueens(chessboardCopy, row+1);
+                    chessboard[row][i] = true;
+                    nQueens(chessboard, row+1);
+                    chessboard[row][i] = false;
                 }
             }
         }
     }
 
     /**
-     * Output format
+     * * Output format
+     * @param detail Whether user needs all the solutions printed
      */
     private static void printSol(boolean detail) {
         System.out.println("[");

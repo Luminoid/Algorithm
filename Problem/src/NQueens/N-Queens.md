@@ -23,8 +23,8 @@ For example, there exist two distinct solutions to the 4-queens puzzle:
 ```
 
 ## Algorithm
-1. backtracking by two-dimensional array
-2. backtracking by one-dimensional array
+1. Backtracking by two-dimensional array
+2. Backtracking by one-dimensional array
 
 ## Solution Number
 |   n   | Solution Number |
