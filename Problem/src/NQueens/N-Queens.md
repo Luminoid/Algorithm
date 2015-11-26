@@ -25,6 +25,7 @@ For example, there exist two distinct solutions to the 4-queens puzzle:
 ## Algorithm
 1. Backtracking by two-dimensional boolean array representing the whole chessboard
 2. Backtracking by one-dimensional int array representing the queen position in every line
+3. Based on method 1, but using bit operation to decide whether the position is feasible
 
 ## Solution Number
 |   n   | Solution Number |
@@ -49,3 +50,8 @@ For example, there exist two distinct solutions to the 4-queens puzzle:
 |   18  |   1        |
 |   19  |   1        |
 |   20  |   1        |
+
+
+#### Reference: 
+1. [N皇后问题的两个最高效的算法](http://blog.csdn.net/hackbuteer1/article/details/6657109)
+2. 

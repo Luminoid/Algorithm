@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Ethan on 15/11/25.
- * This method is based on backtracking.
+ * This method is based on backtracking by one-dimensional int array representing the queen position in every line.
  */
 public class NQueens2 {
 
@@ -57,30 +57,30 @@ public class NQueens2 {
             int size = position.length;
             for (int val : position) {
                 int s = size;
-                if (val==position[0]){
+                if (val == position[0]) {
                     System.out.print(" [\"");
-                }else {
+                } else {
                     System.out.print("\n  \"");
                 }
-                while (size-s!=val) {
+                while (size - s != val) {
                     System.out.print(".");
                     s--;
                 }
                 System.out.print("Q");
                 s--;
-                while (s>0) {
+                while (s > 0) {
                     System.out.print(".");
                     s--;
                 }
-                if (val==position[position.length-1]){
+                if (val == position[position.length - 1]) {
                     System.out.print("\"");
-                }else{
+                } else {
                     System.out.print("\",");
                 }
             }
-            if (position==allSol.get(allSol.size()-1)){
+            if (position == allSol.get(allSol.size() - 1)) {
                 System.out.print("]\n");
-            }else {
+            } else {
                 System.out.print("],\n\n");
             }
         }
@@ -94,13 +94,13 @@ public class NQueens2 {
         // chessboard initialization
         int[] position = new int[n];
         for (int i = 0; i < position.length; i++) {
-            position[i]=-1;
+            position[i] = -1;
         }
 
         nQueens(position, 0);
         int solNum = allSol.size();
         System.out.println("The solution number is: " + solNum);
-        if (detail){
+        if (detail) {
             printSol();
         }
     }
