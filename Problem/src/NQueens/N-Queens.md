@@ -31,6 +31,7 @@ For example, there exist two distinct solutions to the 4-queens puzzle:
 ## Performance Analysis
 Method 1 to 3 have the function of displaying chessboard.
 Method 4 can only get the solution numbers.
+Picture1: Finding the solution numbers with 4 backtracking methods.
 ![Method1to4](PerformanceAnalysis/performance1.png)
 
 ## Solution Number
@@ -54,10 +55,6 @@ Method 4 can only get the solution numbers.
 |   16  |  14772512  |
 |   17  |  95815104  |
 |   18  |  666090624 |
-|   19  |  1         |
-|   20  |  1         |
-
 
 #### Reference: 
 1. [N皇后问题的两个最高效的算法](http://blog.csdn.net/hackbuteer1/article/details/6657109)
-2. 
