@@ -45,7 +45,13 @@ public class NQueens1 {
     private static void nQueens(boolean[][] chessboard, int row) {
         int size = chessboard.length;
         if (row == chessboard.length) {
-            allSol.add(chessboard);
+            // Array copy
+            boolean[][] chessboardCopy = new boolean[size][];
+            for (int j = 0; j < size; j++) {
+                chessboardCopy[j] = new boolean[size];
+                System.arraycopy(chessboard[j], 0, chessboardCopy[j], 0, size);
+            }
+            allSol.add(chessboardCopy);
         } else {
             for (int i = 0; i < size; i++) {
                 if (isValid(chessboard, row, i)) {
@@ -58,12 +64,10 @@ public class NQueens1 {
     }
 
     /**
-     * * Output format
-     * @param detail Whether user needs all the solutions printed
+     * Output format
      */
-    private static void printSol(boolean detail) {
-        System.out.println("[");
-        if (detail){
+    private static void printSol() {
+            System.out.println("[");
             for (boolean[][] chessboard : allSol) {
                 for (boolean[] line : chessboard) {
                     if (line==chessboard[0]){
@@ -91,21 +95,26 @@ public class NQueens1 {
                 }
             }
             System.out.println("]");
-        }
     }
 
+    /**
+     * @param detail Whether user needs all the solutions printed
+     */
     public static void solveNQueens(int n, boolean detail) {
         boolean[][] chessboard = new boolean[n][n]; // chessboard initialization
+
         nQueens(chessboard, 0);
         int solNum = allSol.size();
         System.out.println("The solution number is: " + solNum);
-        printSol(detail);
+        if (detail) {
+            printSol();
+        }
     }
 
     public static void main(String[] args) {
         for (int i = 1; i < 20; i++) {
             allSol = new ArrayList<boolean[][]>();
-            solveNQueens(i, false);
+            solveNQueens(i, true);
         }
     }
 }
