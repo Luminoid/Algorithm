@@ -30,7 +30,9 @@ For example, there exist two distinct solutions to the 4-queens puzzle:
 
 ## Performance Analysis
 Method 1 to 3 have the function of displaying chessboard.
+
 Method 4 can only get the solution numbers.
+
 Picture1: Finding the solution numbers with 4 backtracking methods.
 ![Method1to4](PerformanceAnalysis/performance1.png)
 
