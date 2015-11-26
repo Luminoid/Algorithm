@@ -4,24 +4,28 @@ import java.util.ArrayList;
 
 /**
  * Created by Ethan on 15/11/26.
- * This method is based on method 1, but using bit operation to decide whether the position is feasible
+ * This method is based on method 2, but using bit operation to decide whether the position is feasible
  */
 public class NQueens3 {
 
     /**
      * All feasible solutions are stored in an ArrayList.
      */
-    private static ArrayList<boolean[][]> allSol = new ArrayList<boolean[][]>();
+    protected static ArrayList<int[]> allSol = new ArrayList<int[]>();
     private static int mask;
 
-    private static void setQueen(boolean[][] chessboard, int row, int pos, boolean bool) {
-        int size = chessboard.length;
-        int col = 0;
-        while (pos != 1) {
-            pos >>= 1;
-            col++;
+    private static void setQueen(int[] position, int row, int pos, boolean bool) {
+        if (bool) {
+            int size = position.length;
+            int col = 0;
+            while (pos != 1) {
+                pos >>= 1;
+                col++;
+            }
+            position[row] = (size - col - 1);
+        } else {
+            position[row] = -1;
         }
-        chessboard[row][size - col - 1] = bool;
     }
 
     /**
@@ -29,26 +33,24 @@ public class NQueens3 {
      * @param leftdb  which left diagonal bit is infeasible
      * @param rightdb which right diagonal bit is infeasible
      */
-    private static void nQueens(boolean[][] chessboard, int colb, int leftdb, int rightdb, int row) {
+    private static void nQueens(int[] position, int colb, int leftdb, int rightdb, int row) {
         int feasibleBit, pos;
+        int size = position.length;
         if (colb != mask) { // Still have space to place another queen
             feasibleBit = mask & (~(colb | leftdb | rightdb)); // find all feasible bits
             while (feasibleBit != 0) {
                 pos = feasibleBit & (~feasibleBit + 1); // find the rightmost 1
                 feasibleBit -= pos; // remove the rightmost 1 of feasible bits
-                setQueen(chessboard, row, pos, true);
-                nQueens(chessboard, colb | pos, (leftdb | pos) << 1, (rightdb | pos) >> 1, row + 1); // set infeasible bits of next line
-                setQueen(chessboard, row, pos, false); // restore the change
+                setQueen(position, row, pos, true);
+                // set infeasible bits of next line
+                nQueens(position, colb | pos, (leftdb | pos) << 1, (rightdb | pos) >> 1, row + 1);
+                setQueen(position, row, pos, false); // restore the change
             }
         } else { // find a solution
             // Array copy
-            int size = chessboard.length;
-            boolean[][] chessboardCopy = new boolean[size][];
-            for (int j = 0; j < size; j++) {
-                chessboardCopy[j] = new boolean[size];
-                System.arraycopy(chessboard[j], 0, chessboardCopy[j], 0, size);
-            }
-            allSol.add(chessboardCopy);
+            int[] positionCopy = new int[size];
+            System.arraycopy(position, 0, positionCopy, 0, size);
+            allSol.add(positionCopy);
         }
     }
 
@@ -57,27 +59,32 @@ public class NQueens3 {
      */
     private static void printSol() {
         System.out.println("[");
-        for (boolean[][] chessboard : allSol) {
-            for (boolean[] line : chessboard) {
-                if (line == chessboard[0]) {
+        for (int[] position : allSol) {
+            int size = position.length;
+            for (int val : position) {
+                int s = size;
+                if (val == position[0]) {
                     System.out.print(" [\"");
                 } else {
                     System.out.print("\n  \"");
                 }
-                for (boolean element : line) {
-                    if (element) {
-                        System.out.print("Q");
-                    } else {
-                        System.out.print(".");
-                    }
+                while (size - s != val) {
+                    System.out.print(".");
+                    s--;
                 }
-                if (line == chessboard[chessboard.length - 1]) {
+                System.out.print("Q");
+                s--;
+                while (s > 0) {
+                    System.out.print(".");
+                    s--;
+                }
+                if (val == position[position.length - 1]) {
                     System.out.print("\"");
                 } else {
                     System.out.print("\",");
                 }
             }
-            if (chessboard == allSol.get(allSol.size() - 1)) {
+            if (position == allSol.get(allSol.size() - 1)) {
                 System.out.print("]\n");
             } else {
                 System.out.print("],\n\n");
@@ -91,9 +98,12 @@ public class NQueens3 {
      */
     public static void solveNQueens(int n, boolean detail) {
         // chessboard initialization
-        boolean[][] chessboard = new boolean[n][n]; // chessboard initialization
+        int[] position = new int[n];
+        for (int i = 0; i < position.length; i++) {
+            position[i] = -1;
+        }
         mask = (1 << n) - 1; // set n bit to 1
-        nQueens(chessboard, 0, 0, 0, 0);
+        nQueens(position, 0, 0, 0, 0);
 
         int solNum = allSol.size();
         System.out.println("The solution number is: " + solNum);
@@ -104,7 +114,7 @@ public class NQueens3 {
 
     public static void main(String[] args) {
         for (int i = 1; i < 20; i++) {
-            allSol = new ArrayList<boolean[][]>();
+            allSol = new ArrayList<int[]>();
             solveNQueens(i, false);
         }
     }

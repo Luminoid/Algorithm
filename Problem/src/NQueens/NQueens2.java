@@ -11,7 +11,7 @@ public class NQueens2 {
     /**
      * All feasible solutions are stored in an ArrayList.
      */
-    private static ArrayList<int[]> allSol = new ArrayList<int[]>();
+    protected static ArrayList<int[]> allSol = new ArrayList<int[]>();
 
     /**
      * Decide whether position[i] is a valid condition for placing a queen.
