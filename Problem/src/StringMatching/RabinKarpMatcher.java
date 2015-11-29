@@ -30,6 +30,7 @@ public class RabinKarpMatcher {
                 System.out.println("Pattern occurs with shift " + s);
             }
             if (s < n - m) {
+                // avoid the negative result modulo q
                 t[s + 1] = (d * (t[s] - ((T.charAt(s) - base) * h) % q + q) + (T.charAt(s + m) - base)) % q;
             }
         }
