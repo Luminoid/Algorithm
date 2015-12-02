@@ -20,8 +20,8 @@ public class Heapsort {
      * Internal method for heapsort that is used in deleteMax and buildHeap.(Max Heapify)
      *
      * @param a an array of Comparable items.
-     * @int i the position from which to percolate down.
-     * @int n the logical size of the binary heap
+     * @param i the position from which to percolate down.
+     * @param n the logical size of the binary heap
      */
     private static void percDown(int[] a, int i, int n) {
         int child;

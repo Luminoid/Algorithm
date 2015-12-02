@@ -26,8 +26,9 @@ public class RabinKarpMatcher {
         }
         for (int s = 0; s <= n - m; s++) { // Matching
             if (p == t[s]) {
-                if (P.equals(T.substring(s, s + m))) ;
-                System.out.println("Pattern occurs with shift " + s);
+                if (P.equals(T.substring(s, s + m))){
+                    System.out.println("Pattern occurs with shift " + s);
+                }
             }
             if (s < n - m) {
                 // avoid the negative result modulo q

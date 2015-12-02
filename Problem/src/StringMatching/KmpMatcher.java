@@ -22,7 +22,7 @@ public class KmpMatcher {
     }
 
 
-    public static void KmpMatcher(String T, String P, char base) {
+    public static void kmpMatcher(String T, String P, char base) {
         int n = T.length();
         int m = P.length();
         int[] prefix = computePrefixFunction(P, base); // prefix function
@@ -44,6 +44,6 @@ public class KmpMatcher {
     public static void main(String[] args) {
         String T = "abababacaba";
         String P = "aba";
-        KmpMatcher(T, P, 'a');
+        kmpMatcher(T, P, 'a');
     }
 }
