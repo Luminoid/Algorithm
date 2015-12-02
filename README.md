@@ -50,7 +50,7 @@ Involving algorithms implemented in Java. Most code are based on *CLRS* and *Dat
 
 ## Problem
 1. [N-Queens](./Problem/src/NQueens/N-Queens.md)
-2. String Matching
+2. [String Matching](./Problem/src/StringMatching/StringMatching.md)
 
 ## Other
 1. Finding minimum and maximum simultaneously
