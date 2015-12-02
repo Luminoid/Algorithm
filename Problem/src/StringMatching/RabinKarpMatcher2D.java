@@ -3,6 +3,7 @@ package StringMatching;
 /**
  * Created by Ethan on 15/11/27.
  * Reference: CLRS, Exercises 32.2-3
+ * The Rabin-Karp algorithm on two-dimensional array.
  */
 public class RabinKarpMatcher2D {
 

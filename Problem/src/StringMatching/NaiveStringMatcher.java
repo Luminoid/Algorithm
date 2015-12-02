@@ -2,6 +2,7 @@ package StringMatching;
 
 /**
  * Created by Ethan on 15/11/26.
+ * The naive string-matching algorithm.
  */
 public class NaiveStringMatcher {
     /**

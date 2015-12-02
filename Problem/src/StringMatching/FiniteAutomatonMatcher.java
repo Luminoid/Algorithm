@@ -2,6 +2,7 @@ package StringMatching;
 
 /**
  * Created by Ethan on 15/11/28.
+ * String matching with finite automata.
  */
 public class FiniteAutomatonMatcher {
     private static int[][] computeTransitionFunction(String P, char[] alphabet) {

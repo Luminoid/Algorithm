@@ -2,6 +2,7 @@ package StringMatching;
 
 /**
  * Created by Ethan on 15/11/27.
+ * The Rabin-Karp algorithm.
  */
 public class RabinKarpMatcher {
     public static void rabinKarpMatcher(String T, String P) {
