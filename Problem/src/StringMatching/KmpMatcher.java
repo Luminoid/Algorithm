@@ -21,7 +21,6 @@ public class KmpMatcher {
         return prefix;
     }
 
-
     public static void kmpMatcher(String T, String P, char base) {
         int n = T.length();
         int m = P.length();

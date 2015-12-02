@@ -12,7 +12,7 @@ The string-matching problem is the problem of finding all valid shifts with whic
 3. The Rabin-Karp algorithm on two-dimensional array
 4. String matching with finite automata
 5. The Knuth-Morris-Pratt algorithm
-6. String cyclic rotation algorithm based on KMP in linear time 
+6. String cyclic rotation judging algorithm based on KMP in linear time
 
 ## Time analysis
 |     Algorithm      | Preprocessing time | Matching time |
