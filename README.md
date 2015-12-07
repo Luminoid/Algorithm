@@ -48,6 +48,10 @@ Involving algorithms implemented in Java. Most code are based on *CLRS* and *Dat
 2. Matrix-chain multiplication
 3. Longest-common-subsequence problem
 
+## Multithreaded Algorithms
+### Dynamic Multithreading
+1. Computing Fibonacci numbers recursively
+
 ## Problem
 1. [N-Queens](./Problem/src/NQueens/N-Queens.md)
 2. [String Matching](./Problem/src/StringMatching/StringMatching.md)
