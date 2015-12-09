@@ -1,4 +1,4 @@
-package DynamicMultithreading.MergeSort;
+package DynamicMultithreading.Mergesort;
 
 /**
  * Created by Ethan on 15/12/9.
