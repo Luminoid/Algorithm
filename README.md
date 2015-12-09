@@ -51,6 +51,7 @@ Involving algorithms implemented in Java. Most code are based on *CLRS* and *Dat
 ## Multithreaded Algorithms
 ### Dynamic Multithreading
 1. Computing Fibonacci numbers recursively
+2. [Multithreaded merge sort](./MultithreadedAlgorithms/src/DynamicMultithreading/MergeSort/MultithreadedMergeSort.md)
 
 ## Problem
 1. [N-Queens](./Problem/src/NQueens/N-Queens.md)

@@ -21,7 +21,7 @@ public class FibonacciParallel {
     public static long fibP(int n) {
         if (n <= 1) {
             return n;
-        }else if (n==30){
+        } else if (n == 30) {
             FibonacciParallel fibonacciParallel = new FibonacciParallel();
             SpawnThread spawnThread = fibonacciParallel.new SpawnThread(n - 1);
             spawnThread.start(); // spawn
@@ -33,7 +33,7 @@ public class FibonacciParallel {
             }
             long x = spawnThread.ans;
             return x + y;
-        }else {
+        } else {
             long x = fibP(n - 1);
             long y = fibP(n - 2);
             return x + y;
