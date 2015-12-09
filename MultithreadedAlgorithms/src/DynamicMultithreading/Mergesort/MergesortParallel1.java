@@ -1,9 +1,29 @@
+package DynamicMultithreading.Mergesort;
+
 import java.util.Arrays;
 
 /**
  * Created by Ethan on 15/10/24.
+ * Spawn the first recursive call of mergeSort.
  */
-public class MergesortSentinel {
+public class MergesortParallel1 {
+    public class SpawnThread extends Thread {
+        int[] a;
+        int p;
+        int q;
+
+        public SpawnThread(int[] a, int p, int q) {
+            this.a = a;
+            this.p = p;
+            this.q = q;
+        }
+
+        @Override
+        public void run() {
+            mergeSort(a, p, q);
+        }
+    }
+
     private static void merge(int[] a, int p, int q, int r) {
         int num1 = q - p + 1;
         int num2 = r - q;
@@ -13,6 +33,7 @@ public class MergesortSentinel {
         for (int i = 0; i < num1; i++) {
             leftArr[i] = a[p + i];
         }
+
         for (int i = 0; i < num2; i++) {
             rightArr[i] = a[q + i + 1];
         }
@@ -37,8 +58,15 @@ public class MergesortSentinel {
     private static void mergeSort(int[] a, int p, int r) {
         if (p < r) {
             int q = (p + r) / 2;
-            mergeSort(a, p, q);
+            MergesortParallel1 msp1 = new MergesortParallel1();
+            SpawnThread spawnThread = msp1.new SpawnThread(a, p, q);
+            spawnThread.start(); // spawn
             mergeSort(a, q + 1, r);
+            try {
+                spawnThread.join(); // sync
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             merge(a, p, q, r);
         }
     }
@@ -48,7 +76,10 @@ public class MergesortSentinel {
     }
 
     public static void main(String[] args) {
-        int[] array = {12, 2, 3, 8, 5, 3, 1, 12};
+        int[] array = new int[100];
+        for (int i = 0; i < 100; i++) {
+            array[i] = (int) (Math.random() * 100);
+        }
         mergeSort(array);
         System.out.println(Arrays.toString(array));
     }
