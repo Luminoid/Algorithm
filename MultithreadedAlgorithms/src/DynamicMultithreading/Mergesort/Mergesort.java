@@ -1,10 +1,12 @@
+package DynamicMultithreading.MergeSort;
+
 import java.util.Arrays;
 
 /**
  * Created by Ethan on 15/10/24.
  */
-public class MergeSortSentinel {
-    private static void merge(int[] a, int p, int q, int r) {
+public class MergeSort {
+    public static void merge(int[] a, int p, int q, int r) {
         int num1 = q - p + 1;
         int num2 = r - q;
         int[] leftArr = new int[num1 + 1];
@@ -48,7 +50,10 @@ public class MergeSortSentinel {
     }
 
     public static void main(String[] args) {
-        int[] array = {12, 2, 3, 8, 5, 3, 1, 12};
+        int[] array = new int[100];
+        for (int i = 0; i < 100; i++) {
+            array[i] = (int) (Math.random() * 100);
+        }
         mergeSort(array);
         System.out.println(Arrays.toString(array));
     }

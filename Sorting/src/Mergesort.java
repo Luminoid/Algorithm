@@ -3,8 +3,8 @@ import java.util.Arrays;
 /**
  * Created by Ethan on 15/10/2.
  */
-// Mergesort uses the lowest number of comparisons of all the popular sorting algorithms
-public class Mergesort {
+// MergeSort uses the lowest number of comparisons of all the popular sorting algorithms
+public class MergeSort {
 
     /**
      * Internal method that merges two sorted halves of a subarray.
@@ -59,7 +59,7 @@ public class Mergesort {
     }
 
     /**
-     * Mergesort algorithm
+     * MergeSort algorithm
      *
      * @param a an array of Comparable items.
      */
