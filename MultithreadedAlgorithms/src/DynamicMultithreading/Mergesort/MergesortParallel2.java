@@ -7,6 +7,8 @@ import java.util.Arrays;
  * Fashion a multithreaded version of merging by using nested parallelism
  */
 public class MergeSortParallel2 {
+    static int l; // array length
+
     public class MPThread extends Thread {
         int[] T;
         int p1;
@@ -88,14 +90,19 @@ public class MergeSortParallel2 {
             int q3 = p3 + (q1 - p1) + (q2 - p2);
             A[q3] = T[q1];
 
-            MergeSortParallel2 msp2 = new MergeSortParallel2();
-            MPThread mpThread = msp2.new MPThread(T, p1, q1 - 1, p2, q2 - 1, A, p3);
-            mpThread.start(); // spawn
-            mergeP(T, q1 + 1, r1, q2, r2, A, q3 + 1);
-            try {
-                mpThread.join(); // sync
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if ((n1+n2) >= l) {
+                MergeSortParallel2 msp2 = new MergeSortParallel2();
+                MPThread mpThread = msp2.new MPThread(T, p1, q1 - 1, p2, q2 - 1, A, p3);
+                mpThread.start(); // spawn
+                mergeP(T, q1 + 1, r1, q2, r2, A, q3 + 1);
+                try {
+                    mpThread.join(); // sync
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                mergeP(T, p1, q1 - 1, p2, q2 - 1, A, p3);
+                mergeP(T, q1 + 1, r1, q2, r2, A, q3 + 1);
             }
         }
     }
@@ -108,20 +115,27 @@ public class MergeSortParallel2 {
             int[] T = new int[n];
             int q = (p + r) / 2;
             int qn = q - p + 1;
-            MergeSortParallel2 msp2 = new MergeSortParallel2();
-            MSPThread mspThread = msp2.new MSPThread(A, p, q, T, 0);
-            mspThread.start(); // spawn
-            mergeSortP(A, q + 1, r, T, qn);
-            try {
-                mspThread.join(); // sync
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (n >= l) {
+                MergeSortParallel2 msp2 = new MergeSortParallel2();
+                MSPThread mspThread = msp2.new MSPThread(A, p, q, T, 0);
+                mspThread.start(); // spawn
+                mergeSortP(A, q + 1, r, T, qn);
+                try {
+                    mspThread.join(); // sync
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                mergeSortP(A, p, q, T, 0);
+                mergeSortP(A, q + 1, r, T, qn);
             }
             mergeP(T, 0, qn - 1, qn, n - 1, B, s);
         }
     }
 
     public static void mergeSortP(int[] A) {
+        l = A.length;
+        l /= 4;
         int[] B = new int[A.length];
         mergeSortP(A, 0, A.length - 1, B, 0);
         System.arraycopy(B, 0, A, 0, B.length);

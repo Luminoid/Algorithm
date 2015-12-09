@@ -7,6 +7,8 @@ import java.util.Arrays;
  * Spawn the first recursive call of mergeSort.
  */
 public class MergeSortParallel1 {
+    static int l; // array length
+
     public class SpawnThread extends Thread {
         int[] a;
         int p;
@@ -27,20 +29,27 @@ public class MergeSortParallel1 {
     private static void mergeSort(int[] a, int p, int r) {
         if (p < r) {
             int q = (p + r) / 2;
-            MergeSortParallel1 msp1 = new MergeSortParallel1();
-            SpawnThread spawnThread = msp1.new SpawnThread(a, p, q);
-            spawnThread.start(); // spawn
-            mergeSort(a, q + 1, r);
-            try {
-                spawnThread.join(); // sync
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if ((r - p) >= l) {
+                MergeSortParallel1 msp1 = new MergeSortParallel1();
+                SpawnThread spawnThread = msp1.new SpawnThread(a, p, q);
+                spawnThread.start(); // spawn
+                mergeSort(a, q + 1, r);
+                try {
+                    spawnThread.join(); // sync
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                mergeSort(a, p, q);
+                mergeSort(a, q + 1, r);
             }
             MergeSort.merge(a, p, q, r);
         }
     }
 
     public static void mergeSort(int[] a) {
+        l = a.length;
+        l /= 10;
         mergeSort(a, 0, a.length - 1);
     }
 
