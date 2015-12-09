@@ -1,4 +1,4 @@
-package DynamicMultithreading.MergeSort;
+package DynamicMultithreading.MultithreadedMergeSort;
 
 import java.util.Arrays;
 
