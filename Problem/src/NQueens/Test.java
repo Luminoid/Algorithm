@@ -15,7 +15,7 @@ public class Test {
             NQueens1.solveNQueens(i, false);
             endTime = System.currentTimeMillis();
             NQueens1.allSol.clear();
-            System.out.println("Method 1: The time of size "+i+" is: " + (endTime-startTime));
+            System.out.println("Method 1: The time of size " + i + " is: " + (endTime - startTime));
         }
 
         for (int i = 1; i <= 15; i++) {
@@ -24,7 +24,7 @@ public class Test {
             NQueens2.solveNQueens(i, false);
             endTime = System.currentTimeMillis();
             NQueens2.allSol.clear();
-            System.out.println("Method 2: The time of size "+i+" is: " + (endTime-startTime));
+            System.out.println("Method 2: The time of size " + i + " is: " + (endTime - startTime));
         }
 
         for (int i = 1; i <= 15; i++) {
@@ -33,7 +33,7 @@ public class Test {
             NQueens3.solveNQueens(i, false);
             endTime = System.currentTimeMillis();
             NQueens3.allSol.clear();
-            System.out.println("Method 3: The time of size "+i+" is: " + (endTime-startTime));
+            System.out.println("Method 3: The time of size " + i + " is: " + (endTime - startTime));
         }
 
         for (int i = 1; i <= 15; i++) {
@@ -41,7 +41,7 @@ public class Test {
             startTime = System.currentTimeMillis();
             NQueens4.solveNQueens(i);
             endTime = System.currentTimeMillis();
-            System.out.println("Method 4: The time of size "+i+" is: " + (endTime-startTime));
+            System.out.println("Method 4: The time of size " + i + " is: " + (endTime - startTime));
         }
 
     }
