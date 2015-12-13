@@ -56,6 +56,72 @@ public class LupDecomposition {
     }
 
     /**
+     * Computing an LUP decomposition.
+     *
+     * @param A nonsingular matrix
+     * @throws IllegalArgumentException if A is singular
+     */
+    public static double[] lupDecomposition(double[][] A, double[] b) throws IllegalArgumentException {
+        int n = A.length;
+        int tmpInt;
+        double tmpDouble;
+        int[] T = new int[n]; // representing the permutation matrix P
+        for (int i = 0; i < n; i++) {
+            T[i] = i;
+        }
+        for (int k = 0; k < n; k++) {
+            double max = 0;
+            int kEx = 0;
+            for (int i = k; i < n; i++) {
+                if (Math.abs(A[i][k]) > max) {
+                    max = Math.abs(A[i][k]);
+                    kEx = i;
+                }
+            }
+            if (max == 0) {
+                throw new IllegalArgumentException(); // singular matrix
+            }
+            tmpInt = T[k]; // exchange T[k] and T[kEx]
+            T[k] = T[kEx];
+            T[kEx] = tmpInt;
+
+            for (int i = 0; i < n; i++) {
+                tmpDouble = A[k][i]; // exchange A[k][i] with A[kEx][i]
+                A[k][i] = A[kEx][i];
+                A[kEx][i] = tmpDouble;
+            }
+            for (int i = k + 1; i < n; i++) {
+                A[i][k] = div(A[i][k], A[k][k]);
+                for (int j = k + 1; j < n; j++) {
+                    A[i][j] = sub(A[i][j], mul(A[i][k], A[k][j]));
+                }
+            }
+        }
+        return ComputingLU(A, T, b);
+    }
+
+    /**
+     * Computing L and U using matrix A
+     */
+    private static double[] ComputingLU(double[][] A, int[] T, double[] b) {
+        int n = A.length;
+        double[][] L = new double[n][n];
+        double[][] U = new double[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i <= j) {
+                    U[i][j] = A[i][j];
+                } else if (i > j) {
+                    L[i][j] = A[i][j];
+                } else { // i = j
+                    L[i][j] = 1;
+                }
+            }
+        }
+        return LupSolve(L, U, T, b);
+    }
+
+    /**
      * The procedure LUP-SOLVE solves for x by combining forward and back substitution.
      *
      * @param L unit lower-triangular matrix
@@ -85,13 +151,9 @@ public class LupDecomposition {
         return x;
     }
 
-
-
     public static void main(String[] args) {
-        double[][] L = {{1, 0, 0}, {0.2, 1, 0}, {0.6, 0.5, 1}};
-        double[][] U = {{5, 6, 3}, {0, 0.8, -0.6}, {0, 0, 2.5}};
-        int[] T = {2, 0, 1};
+        double[][] A = {{1, 2, 0}, {3, 4, 4}, {5, 6, 3}};
         double[] b = {3, 7, 8};
-        System.out.println(Arrays.toString(LupSolve(L, U, T, b)));
+        System.out.println(Arrays.toString(lupDecomposition(A, b)));
     }
 }
