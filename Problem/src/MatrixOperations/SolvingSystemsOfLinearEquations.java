@@ -16,12 +16,8 @@ import java.util.Arrays;
  * <li> Ux = y (Using back substitution to get x) </li>
  * <li> A = P<sup>-1</sup>LU </li>
  * </ol>
- * <h4> Computing an LU decomposition </h4>
- * <ol>
- * <li>  </li>
- * </ol>
  */
-public class LupDecomposition {
+public class SolvingSystemsOfLinearEquations {
     /**
      * Precise decimal operations
      */
@@ -61,7 +57,7 @@ public class LupDecomposition {
      * @param A nonsingular matrix
      * @throws IllegalArgumentException if A is singular
      */
-    public static double[] lupDecomposition(double[][] A, double[] b) throws IllegalArgumentException {
+    public static void lupDecomposition(double[][] A, double[] b) throws IllegalArgumentException {
         int n = A.length;
         int tmpInt;
         double tmpDouble;
@@ -97,28 +93,31 @@ public class LupDecomposition {
                 }
             }
         }
-        return ComputingLU(A, T, b);
+        ComputingLU(A, T, b);
     }
 
     /**
      * Computing L and U using matrix A
      */
-    private static double[] ComputingLU(double[][] A, int[] T, double[] b) {
+    private static void ComputingLU(double[][] A, int[] T, double[] b) {
         int n = A.length;
         double[][] L = new double[n][n];
         double[][] U = new double[n][n];
         for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                U[i][j] = A[i][j]; // j ≥ i
+            }
+        }
+        for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (i <= j) {
-                    U[i][j] = A[i][j];
-                } else if (i > j) {
+                if (i > j) {
                     L[i][j] = A[i][j];
-                } else { // i = j
+                } else if (i == j) {
                     L[i][j] = 1;
                 }
             }
         }
-        return LupSolve(L, U, T, b);
+        LupSolve(L, U, T, b);
     }
 
     /**
@@ -130,7 +129,7 @@ public class LupDecomposition {
      * @param b array b<sub>i</sub>
      * @return x
      */
-    private static double[] LupSolve(double[][] L, double[][] U, int[] T, double[] b) {
+    private static void LupSolve(double[][] L, double[][] U, int[] T, double[] b) {
         int n = L.length;
         double[] x = new double[n];
         double[] y = new double[n];
@@ -148,12 +147,12 @@ public class LupDecomposition {
             }
             x[i] = div(sub(y[i], sum), U[i][i]);
         }
-        return x;
+        System.out.println(Arrays.toString(x));
     }
 
     public static void main(String[] args) {
         double[][] A = {{1, 2, 0}, {3, 4, 4}, {5, 6, 3}};
         double[] b = {3, 7, 8};
-        System.out.println(Arrays.toString(lupDecomposition(A, b)));
+        lupDecomposition(A, b);
     }
 }
