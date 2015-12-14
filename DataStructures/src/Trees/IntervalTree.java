@@ -132,10 +132,11 @@ public class IntervalTree {
             intervalPrintTree(n.leftNode, (level + 1));
 
             if (n != this.root) {
-                System.out.println(intervalPrint(n.interval) + "\tLevel: " + level + " Parent: " +
+                System.out.println(intervalPrint(n.interval) + "  \tLevel: " + level + " Parent: " +
                         intervalPrint(n.parentNode.interval) + "\t\tColor: " + n.color);
             } else {
-                System.out.println(intervalPrint(n.interval) + "\tLevel: " + level + " Parent: null" + "\t\tColor: " + n.color);
+                System.out.println(intervalPrint(n.interval) + "  \tLevel: " + level + " Parent: null" + "\t\tColor: " +
+                        n.color);
             }
 
             // right leaf node
@@ -154,10 +155,11 @@ public class IntervalTree {
         if (n != nullNode) {
 
             if (n != this.root) {
-                System.out.println(intervalPrint(n.interval) + "\tLevel: " + level + " Parent: " +
+                System.out.println(intervalPrint(n.interval) + "  \tLevel: " + level + " Parent: " +
                         intervalPrint(n.parentNode.interval) + "\t\tColor: " + n.color);
             } else {
-                System.out.println(intervalPrint(n.interval) + "\tLevel: " + level + " Parent: null" + "\t\tColor: " + n.color);
+                System.out.println(intervalPrint(n.interval) + "  \tLevel: " + level + " Parent: null" + "\t\tColor: " +
+                        n.color);
             }
 
             // left leaf node

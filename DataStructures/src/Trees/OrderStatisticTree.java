@@ -133,22 +133,22 @@ public class OrderStatisticTree {
         if (n != nullNode) {
             // left leaf node
             if (n.leftNode == this.nullNode) {
-                System.out.println(n.leftNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key +
+                System.out.println(n.leftNode.data + "   \tLevel: " + (level + 1) + " Parent: " + n.data.key +
                         "\t\tColor:" + BLACK);
             } else {
                 osPrintTree(n.leftNode, (level + 1));
             }
 
             if (n != this.root) {
-                System.out.println(n.data.key + "\tLevel: " + level + " Parent: " + n.parentNode.data.key + "\t\tColor: " +
-                        n.color);
+                System.out.println(n.data.key + "   \tLevel: " + level + " Parent: " + n.parentNode.data.key + "\t\tColor:" +
+                        " " + n.color);
             } else {
-                System.out.println(n.data.key + "\tLevel: " + level + " Parent: null" + "\t\tColor: " + n.color);
+                System.out.println(n.data.key + "   \tLevel: " + level + " Parent: null" + "\t\tColor: " + n.color);
             }
 
             // right leaf node
             if (n.rightNode == this.nullNode) {
-                System.out.println(n.rightNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key + "\t\tColor:"
+                System.out.println(n.rightNode.data + "   \tLevel: " + (level + 1) + " Parent: " + n.data.key + "\t\tColor:"
                         + BLACK);
             } else {
                 osPrintTree(n.rightNode, (level + 1));
@@ -167,22 +167,22 @@ public class OrderStatisticTree {
         if (n != nullNode) {
 
             if (n != this.root) {
-                System.out.println(n.data.key + "\tLevel: " + level + " Parent: " + n.parentNode.data.key + "\t\tColor: " +
-                        n.color);
+                System.out.println(n.data.key + "   \tLevel: " + level + " Parent: " + n.parentNode.data.key + "\t\tColor:" +
+                        " " + n.color);
             } else {
-                System.out.println(n.data.key + "\tLevel: " + level + " Parent: null" + "\t\tColor: " + n.color);
+                System.out.println(n.data.key + "   \tLevel: " + level + " Parent: null" + "\t\tColor: " + n.color);
             }
 
             // left leaf node
             if (n.leftNode == this.nullNode) {
-                System.out.println(n.leftNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key +
+                System.out.println(n.leftNode.data + "   \tLevel: " + (level + 1) + " Parent: " + n.data.key +
                         "\t\tColor: " + BLACK);
             } else {
                 osPreorderTreeWalk(n.leftNode, (level + 1));
             }
             // right leaf node
             if (n.rightNode == this.nullNode) {
-                System.out.println(n.rightNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key +
+                System.out.println(n.rightNode.data + "   \tLevel: " + (level + 1) + " Parent: " + n.data.key +
                         "\t\tColor:" + BLACK);
             } else {
                 osPreorderTreeWalk(n.rightNode, (level + 1));
