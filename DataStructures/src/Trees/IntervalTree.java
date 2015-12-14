@@ -1,3 +1,5 @@
+package Trees;
+
 /**
  * Created by Ethan on 15/11/21.
  * An interval tree is a red-black tree that maintains a dynamic set of elements.
@@ -20,21 +22,21 @@ public class IntervalTree {
         }
     }
 
-    private static class RedBlackNode {
+    private static class intervalNode {
         Interval interval; // The interval value
         int key; // the low endpoint: x.interval.low
         int max; // the maximum value of any interval endpoint stored in the subtree rooted at x
-        RedBlackNode leftNode; // left child
-        RedBlackNode rightNode; // right child
-        RedBlackNode parentNode; // parent
+        intervalNode leftNode; // left child
+        intervalNode rightNode; // right child
+        intervalNode parentNode; // parent
         int color; // color
 
         // Constructors
-        RedBlackNode(Interval interval) {
+        intervalNode(Interval interval) {
             this(interval, interval.low, interval.high, null, null, null);
         }
 
-        RedBlackNode(Interval interval, int key, int max, RedBlackNode leftNode, RedBlackNode rightNode, RedBlackNode
+        intervalNode(Interval interval, int key, int max, intervalNode leftNode, intervalNode rightNode, intervalNode
                 parentNode) {
             this.interval = interval;
             this.key = key;
@@ -46,14 +48,14 @@ public class IntervalTree {
         }
     }
 
-    private RedBlackNode root;
-    private RedBlackNode nullNode;
+    private intervalNode root;
+    private intervalNode nullNode;
 
     /**
      * Construct the tree.
      */
     public IntervalTree() {
-        nullNode = new RedBlackNode(new Interval(Integer.MIN_VALUE, Integer.MIN_VALUE), Integer.MIN_VALUE, Integer.MIN_VALUE,
+        nullNode = new intervalNode(new Interval(Integer.MIN_VALUE, Integer.MIN_VALUE), Integer.MIN_VALUE, Integer.MIN_VALUE,
                 null, null, null);
         nullNode.leftNode = nullNode.rightNode = nullNode;
         root = nullNode;
@@ -74,11 +76,11 @@ public class IntervalTree {
     /**
      * find a node in tree T whose interval equals interval i
      */
-    public RedBlackNode itSearch(Interval i) {
+    public intervalNode itSearch(Interval i) {
         return itSearch(this.root, i);
     }
 
-    private RedBlackNode itSearch(RedBlackNode n, Interval i) {
+    private intervalNode itSearch(intervalNode n, Interval i) {
         if (n == nullNode || i.low == n.key) {
             return n;
         }
@@ -92,8 +94,8 @@ public class IntervalTree {
     /**
      * find a node in tree T whose interval overlaps interval i
      */
-    private RedBlackNode intervalSearch(Interval i) {
-        RedBlackNode x = this.root;
+    private intervalNode intervalSearch(Interval i) {
+        intervalNode x = this.root;
         while (x != this.nullNode && !overlap(i, x.interval)) {
             if (x.leftNode != this.nullNode && x.leftNode.max >= i.low) {
                 x = x.leftNode;
@@ -104,7 +106,7 @@ public class IntervalTree {
         return x;
     }
 
-    private RedBlackNode rbTreeMinimum(RedBlackNode n) {
+    private intervalNode intervalTreeMinimum(intervalNode n) {
         while (n.leftNode != nullNode) {
             n = n.leftNode;
         }
@@ -114,8 +116,8 @@ public class IntervalTree {
     /**
      * Print the tree contents by inorder traversal
      */
-    public void rbPrintTree() {
-        rbPrintTree(root, 0);
+    public void intervalPrintTree() {
+        intervalPrintTree(root, 0);
     }
 
     /**
@@ -124,10 +126,10 @@ public class IntervalTree {
      * @param n     the node that roots the subtree
      * @param level tree height
      */
-    private void rbPrintTree(RedBlackNode n, int level) {
+    private void intervalPrintTree(intervalNode n, int level) {
         if (n != nullNode) {
             // left leaf node
-            rbPrintTree(n.leftNode, (level + 1));
+            intervalPrintTree(n.leftNode, (level + 1));
 
             if (n != this.root) {
                 System.out.println(intervalPrint(n.interval) + "\tLevel: " + level + " Parent: " +
@@ -137,18 +139,18 @@ public class IntervalTree {
             }
 
             // right leaf node
-            rbPrintTree(n.rightNode, (level + 1));
+            intervalPrintTree(n.rightNode, (level + 1));
         }
     }
 
     /**
      * Preorder tree walk
      */
-    public void rbPreorderTreeWalk() {
-        rbPreorderTreeWalk(this.root, 0);
+    public void intervalPreorderTreeWalk() {
+        intervalPreorderTreeWalk(this.root, 0);
     }
 
-    private void rbPreorderTreeWalk(RedBlackNode n, int level) {
+    private void intervalPreorderTreeWalk(intervalNode n, int level) {
         if (n != nullNode) {
 
             if (n != this.root) {
@@ -159,9 +161,9 @@ public class IntervalTree {
             }
 
             // left leaf node
-            rbPreorderTreeWalk(n.leftNode, (level + 1));
+            intervalPreorderTreeWalk(n.leftNode, (level + 1));
             // right leaf node
-            rbPreorderTreeWalk(n.rightNode, (level + 1));
+            intervalPreorderTreeWalk(n.rightNode, (level + 1));
 
         }
     }
@@ -171,9 +173,9 @@ public class IntervalTree {
      *
      * @param x old root
      */
-    private void rbRotateWithRightChild(RedBlackNode x) {
+    private void intervalRotateWithRightChild(intervalNode x) {
 //        System.out.println(x.key);
-        RedBlackNode y = x.rightNode; // new root
+        intervalNode y = x.rightNode; // new root
         x.rightNode = y.leftNode; // turn y's left subtree into x's right subtree
         if (y.leftNode != this.nullNode) {
             y.leftNode.parentNode = x;
@@ -196,8 +198,8 @@ public class IntervalTree {
     /**
      * Rotate binary tree node with left child. (Right rotate)
      */
-    private void rbRotateWithLeftChild(RedBlackNode x) {
-        RedBlackNode y = x.leftNode;
+    private void intervalRotateWithLeftChild(intervalNode x) {
+        intervalNode y = x.leftNode;
         x.leftNode = y.rightNode; // turn y's right subtree into x's left subtree
         if (y.rightNode != this.nullNode) {
             y.rightNode.parentNode = x;
@@ -217,10 +219,10 @@ public class IntervalTree {
         x.max = Math.max(Math.max(x.leftNode.max, x.rightNode.max), x.interval.high);
     }
 
-    public void rbInsert(Interval d) {
-        RedBlackNode z = new RedBlackNode(d);
-        RedBlackNode y = this.nullNode;
-        RedBlackNode x = this.root;
+    public void intervalInsert(Interval d) {
+        intervalNode z = new intervalNode(d);
+        intervalNode y = this.nullNode;
+        intervalNode x = this.root;
         while (x != this.nullNode) {
             y = x;
             if (z.key < x.key) {
@@ -243,13 +245,13 @@ public class IntervalTree {
         z.rightNode = this.nullNode;
         z.color = RED;
 
-        rbInsertFixup(z);
+        intervalInsertFixup(z);
     }
 
-    private void rbInsertFixup(RedBlackNode z) {
+    private void intervalInsertFixup(intervalNode z) {
         while (z.parentNode.color == RED) {
             if (z.parentNode == z.parentNode.parentNode.leftNode) {
-                RedBlackNode y = z.parentNode.parentNode.rightNode;
+                intervalNode y = z.parentNode.parentNode.rightNode;
                 if (y.color == RED) {
                     z.parentNode.color = BLACK; // case 1
                     y.color = BLACK;
@@ -258,14 +260,14 @@ public class IntervalTree {
                 } else {
                     if (z == z.parentNode.rightNode) {
                         z = z.parentNode; // case 2
-                        rbRotateWithRightChild(z);
+                        intervalRotateWithRightChild(z);
                     }
                     z.parentNode.color = BLACK; // case 3
                     z.parentNode.parentNode.color = RED;
-                    rbRotateWithLeftChild(z.parentNode.parentNode);
+                    intervalRotateWithLeftChild(z.parentNode.parentNode);
                 }
             } else {
-                RedBlackNode y = z.parentNode.parentNode.leftNode;
+                intervalNode y = z.parentNode.parentNode.leftNode;
                 if (y.color == RED) {
                     z.parentNode.color = BLACK; // case 1
                     y.color = BLACK;
@@ -273,18 +275,18 @@ public class IntervalTree {
                     z = z.parentNode.parentNode;
                 } else if (z == z.parentNode.leftNode) {
                     z = z.parentNode; // case 2
-                    rbRotateWithLeftChild(z);
+                    intervalRotateWithLeftChild(z);
                 } else {
                     z.parentNode.color = BLACK; // case 3
                     z.parentNode.parentNode.color = RED;
-                    rbRotateWithRightChild(z.parentNode.parentNode);
+                    intervalRotateWithRightChild(z.parentNode.parentNode);
                 }
             }
         }
         this.root.color = BLACK;
     }
 
-    private void rbTransplant(RedBlackNode u, RedBlackNode v) {
+    private void intervalTransplant(intervalNode u, intervalNode v) {
         if (u.parentNode == this.nullNode) {
             this.root = v;
         } else if (u == u.parentNode.leftNode) {
@@ -295,57 +297,57 @@ public class IntervalTree {
         v.parentNode = u.parentNode;
     }
 
-    public void rbDelete(Interval i) {
-        RedBlackNode z = this.itSearch(i);
+    public void intervalDelete(Interval i) {
+        intervalNode z = this.itSearch(i);
         if (z == this.nullNode) {
             System.out.println("Deletion failed: No such data");
             return;
         }
-        RedBlackNode y = z;
-        RedBlackNode x;
+        intervalNode y = z;
+        intervalNode x;
         int yOriginalColor = y.color;
         if (z.leftNode == this.nullNode) {
             x = z.rightNode;
-            rbTransplant(z, z.rightNode);
+            intervalTransplant(z, z.rightNode);
         } else if (z.rightNode == this.nullNode) {
             x = z.leftNode;
-            rbTransplant(z, z.leftNode);
+            intervalTransplant(z, z.leftNode);
         } else {
-            y = rbTreeMinimum(z.rightNode);
+            y = intervalTreeMinimum(z.rightNode);
             yOriginalColor = y.color;
             x = y.rightNode;
             if (y.parentNode == z) {
                 x.parentNode = y;
             } else {
-                rbTransplant(y, y.rightNode);
+                intervalTransplant(y, y.rightNode);
                 y.rightNode = z.rightNode;
                 y.rightNode.parentNode = y;
             }
-            rbTransplant(z, y);
+            intervalTransplant(z, y);
             y.leftNode = z.leftNode;
             y.leftNode.parentNode = y;
             y.color = z.color;
         }
 
-        RedBlackNode m = x; // Maintaining max value
+        intervalNode m = x; // Maintaining max value
         while (m != this.root) {
             m = m.parentNode;
             m.max = Math.max(Math.max(x.leftNode.max, x.rightNode.max), x.interval.high);
         }
 
         if (yOriginalColor == BLACK) {
-            rbDeleteFixup(x);
+            intervalDeleteFixup(x);
         }
     }
 
-    private void rbDeleteFixup(RedBlackNode x) {
+    private void intervalDeleteFixup(intervalNode x) {
         while (x != this.root && x.color == BLACK) {
             if (x == x.parentNode.leftNode) {
-                RedBlackNode w = x.parentNode.rightNode;
+                intervalNode w = x.parentNode.rightNode;
                 if (w.color == RED) {
                     w.color = BLACK; // case 1
                     x.parentNode.color = RED;
-                    rbRotateWithRightChild(x.parentNode);
+                    intervalRotateWithRightChild(x.parentNode);
                     w = x.parentNode.rightNode;
                 }
                 if (w.leftNode.color == BLACK && w.rightNode.color == BLACK) {
@@ -355,21 +357,21 @@ public class IntervalTree {
                     if (w.rightNode.color == BLACK) {
                         w.leftNode.color = BLACK; // case 3
                         w.color = RED;
-                        rbRotateWithLeftChild(w);
+                        intervalRotateWithLeftChild(w);
                         w = x.parentNode.rightNode;
                     }
                     w.color = x.parentNode.color; // case 4
                     x.parentNode.color = BLACK;
                     w.rightNode.color = BLACK;
-                    rbRotateWithRightChild(x.parentNode);
+                    intervalRotateWithRightChild(x.parentNode);
                     x = this.root;
                 }
             } else {
-                RedBlackNode w = x.parentNode.leftNode;
+                intervalNode w = x.parentNode.leftNode;
                 if (w.color == RED) {
                     w.color = BLACK; // case 1
                     x.parentNode.color = RED;
-                    rbRotateWithLeftChild(x.parentNode);
+                    intervalRotateWithLeftChild(x.parentNode);
                     w = x.parentNode.leftNode;
                 }
                 if (w.leftNode.color == BLACK && w.rightNode.color == BLACK) {
@@ -379,13 +381,13 @@ public class IntervalTree {
                     if (w.leftNode.color == BLACK) {
                         w.rightNode.color = BLACK; // case 3
                         w.color = RED;
-                        rbRotateWithRightChild(w);
+                        intervalRotateWithRightChild(w);
                         w = x.parentNode.leftNode;
                     }
                     w.color = x.parentNode.color; // case 4
                     x.parentNode.color = BLACK;
                     w.leftNode.color = BLACK;
-                    rbRotateWithLeftChild(x.parentNode);
+                    intervalRotateWithLeftChild(x.parentNode);
                     x = this.root;
                 }
             }
@@ -397,31 +399,31 @@ public class IntervalTree {
         IntervalTree iTree = new IntervalTree();
 
         // Test insert
-        iTree.rbInsert(new Interval(16, 21));
-        iTree.rbInsert(new Interval(8, 9));
-        iTree.rbInsert(new Interval(25, 30));
-        iTree.rbInsert(new Interval(5, 8));
-        iTree.rbInsert(new Interval(15, 23));
-        iTree.rbInsert(new Interval(17, 19));
-        iTree.rbInsert(new Interval(26, 26));
-        iTree.rbInsert(new Interval(0, 3));
-        iTree.rbInsert(new Interval(6, 10));
-        iTree.rbInsert(new Interval(19, 20));
+        iTree.intervalInsert(new Interval(16, 21));
+        iTree.intervalInsert(new Interval(8, 9));
+        iTree.intervalInsert(new Interval(25, 30));
+        iTree.intervalInsert(new Interval(5, 8));
+        iTree.intervalInsert(new Interval(15, 23));
+        iTree.intervalInsert(new Interval(17, 19));
+        iTree.intervalInsert(new Interval(26, 26));
+        iTree.intervalInsert(new Interval(0, 3));
+        iTree.intervalInsert(new Interval(6, 10));
+        iTree.intervalInsert(new Interval(19, 20));
 
         System.out.println("Inorder tree walk: ");
-        iTree.rbPrintTree();
+        iTree.intervalPrintTree();
         System.out.println("\nPreorder tree walk:");
-        iTree.rbPreorderTreeWalk();
+        iTree.intervalPreorderTreeWalk();
 
         // Test search
-        RedBlackNode node1 = iTree.intervalSearch(new Interval(22, 25));
+        intervalNode node1 = iTree.intervalSearch(new Interval(22, 25));
         System.out.print("\nThe interval overlapped with [22, 25]: ");
         if (node1 != iTree.nullNode) {
             System.out.println(intervalPrint(node1.interval));
         } else {
             System.out.println("No result!\n");
         }
-        RedBlackNode node2 = iTree.intervalSearch(new Interval(31, 33));
+        intervalNode node2 = iTree.intervalSearch(new Interval(31, 33));
         System.out.print("\nThe interval overlapped with [31, 33]: ");
         if (node2 != iTree.nullNode) {
             System.out.println(intervalPrint(node2.interval));
@@ -430,12 +432,12 @@ public class IntervalTree {
         }
 
         // Test delete
-        iTree.rbDelete(new Interval(8, 9));
-        iTree.rbDelete(new Interval(17, 19));
-        iTree.rbDelete(new Interval(25, 30));
-        iTree.rbDelete(new Interval(25, 30)); // duplicated deletion
+        iTree.intervalDelete(new Interval(8, 9));
+        iTree.intervalDelete(new Interval(17, 19));
+        iTree.intervalDelete(new Interval(25, 30));
+        iTree.intervalDelete(new Interval(25, 30)); // duplicated deletion
 
         System.out.println("\nAfter deletion: ");
-        iTree.rbPrintTree();
+        iTree.intervalPrintTree();
     }
 }

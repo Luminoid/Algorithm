@@ -1,6 +1,7 @@
+package Trees;
+
 /**
  * Created by Ethan on 15/11/21.
- * <p/>
  * An order-statistic tree T is simply a red-black tree with additional size information stored in each node.
  */
 public class OrderStatisticTree {
@@ -25,20 +26,20 @@ public class OrderStatisticTree {
         }
     }
 
-    private static class RedBlackNode {
+    private static class OSNode {
         Data data; // The data value in the node
-        RedBlackNode leftNode; // left child
-        RedBlackNode rightNode; // right child
-        RedBlackNode parentNode; // parent
+        OSNode leftNode; // left child
+        OSNode rightNode; // right child
+        OSNode parentNode; // parent
         int color; // color
         int size; // the number of (internal) nodes in the subtree rooted at x (including x itself)
 
         // Constructors
-        RedBlackNode(Data data) {
+        OSNode(Data data) {
             this(data, null, null, null);
         }
 
-        RedBlackNode(Data data, RedBlackNode leftNode, RedBlackNode rightNode, RedBlackNode parentNode) {
+        OSNode(Data data, OSNode leftNode, OSNode rightNode, OSNode parentNode) {
             this.data = data;
             this.leftNode = leftNode;
             this.rightNode = rightNode;
@@ -47,14 +48,14 @@ public class OrderStatisticTree {
         }
     }
 
-    private RedBlackNode root;
-    private RedBlackNode nullNode;
+    private OSNode root;
+    private OSNode nullNode;
 
     /**
      * Construct the tree.
      */
     public OrderStatisticTree() {
-        nullNode = new RedBlackNode(null);
+        nullNode = new OSNode(null);
         nullNode.leftNode = nullNode.rightNode = nullNode;
         root = nullNode;
         root.parentNode = nullNode;
@@ -63,11 +64,11 @@ public class OrderStatisticTree {
     /**
      * Find the node with the ith smallest key in an order-statistic tree T.
      */
-    public RedBlackNode osSelect(int n) {
+    public OSNode osSelect(int n) {
         return osSelect(this.root, n);
     }
 
-    public RedBlackNode osSelect(RedBlackNode n, int i) {
+    public OSNode osSelect(OSNode n, int i) {
         int r = n.leftNode.size + 1; // rank
         if (i == r) {
             return n;
@@ -81,9 +82,9 @@ public class OrderStatisticTree {
     /**
      * Determine the rank of an element.
      */
-    public int osRank(RedBlackNode n) {
+    public int osRank(OSNode n) {
         int r = n.leftNode.size + 1;
-        RedBlackNode m = n;
+        OSNode m = n;
         while (m != this.root) {
             if (m == m.parentNode.rightNode) {
                 r += m.parentNode.leftNode.size + 1;
@@ -93,11 +94,11 @@ public class OrderStatisticTree {
         return r;
     }
 
-    public RedBlackNode rbTreeSearch(String s) {
+    public OSNode rbTreeSearch(String s) {
         return rbTreeSearch(this.root, s);
     }
 
-    private RedBlackNode rbTreeSearch(RedBlackNode n, String s) {
+    private OSNode rbTreeSearch(OSNode n, String s) {
         if (n == nullNode || s.equals(n.data.key)) {
             return n;
         }
@@ -108,7 +109,7 @@ public class OrderStatisticTree {
         }
     }
 
-    private RedBlackNode rbTreeMinimum(RedBlackNode n) {
+    private OSNode rbTreeMinimum(OSNode n) {
         while (n.leftNode != nullNode) {
             n = n.leftNode;
         }
@@ -118,8 +119,8 @@ public class OrderStatisticTree {
     /**
      * Print the tree contents by inorder traversal
      */
-    public void rbPrintTree() {
-        rbPrintTree(root, 0);
+    public void osPrintTree() {
+        osPrintTree(root, 0);
     }
 
     /**
@@ -128,14 +129,14 @@ public class OrderStatisticTree {
      * @param n     the node that roots the subtree
      * @param level tree height
      */
-    private void rbPrintTree(RedBlackNode n, int level) {
+    private void osPrintTree(OSNode n, int level) {
         if (n != nullNode) {
             // left leaf node
             if (n.leftNode == this.nullNode) {
                 System.out.println(n.leftNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key +
                         "\t\tColor:" + BLACK);
             } else {
-                rbPrintTree(n.leftNode, (level + 1));
+                osPrintTree(n.leftNode, (level + 1));
             }
 
             if (n != this.root) {
@@ -150,7 +151,7 @@ public class OrderStatisticTree {
                 System.out.println(n.rightNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key + "\t\tColor:"
                         + BLACK);
             } else {
-                rbPrintTree(n.rightNode, (level + 1));
+                osPrintTree(n.rightNode, (level + 1));
             }
         }
     }
@@ -158,11 +159,11 @@ public class OrderStatisticTree {
     /**
      * Preorder tree walk
      */
-    public void rbPreorderTreeWalk() {
-        rbPreorderTreeWalk(this.root, 0);
+    public void osPreorderTreeWalk() {
+        osPreorderTreeWalk(this.root, 0);
     }
 
-    private void rbPreorderTreeWalk(RedBlackNode n, int level) {
+    private void osPreorderTreeWalk(OSNode n, int level) {
         if (n != nullNode) {
 
             if (n != this.root) {
@@ -177,14 +178,14 @@ public class OrderStatisticTree {
                 System.out.println(n.leftNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key +
                         "\t\tColor: " + BLACK);
             } else {
-                rbPreorderTreeWalk(n.leftNode, (level + 1));
+                osPreorderTreeWalk(n.leftNode, (level + 1));
             }
             // right leaf node
             if (n.rightNode == this.nullNode) {
                 System.out.println(n.rightNode.data + "\tLevel: " + (level + 1) + " Parent: " + n.data.key +
                         "\t\tColor:" + BLACK);
             } else {
-                rbPreorderTreeWalk(n.rightNode, (level + 1));
+                osPreorderTreeWalk(n.rightNode, (level + 1));
             }
         }
     }
@@ -194,9 +195,9 @@ public class OrderStatisticTree {
      *
      * @param x old root
      */
-    private void rbRotateWithRightChild(RedBlackNode x) {
+    private void osRotateWithRightChild(OSNode x) {
 //        System.out.println(x.key);
-        RedBlackNode y = x.rightNode; // new root
+        OSNode y = x.rightNode; // new root
         x.rightNode = y.leftNode; // turn y's left subtree into x's right subtree
         if (y.leftNode != this.nullNode) {
             y.leftNode.parentNode = x;
@@ -219,8 +220,8 @@ public class OrderStatisticTree {
     /**
      * Rotate binary tree node with left child. (Right rotate)
      */
-    private void rbRotateWithLeftChild(RedBlackNode x) {
-        RedBlackNode y = x.leftNode;
+    private void osRotateWithLeftChild(OSNode x) {
+        OSNode y = x.leftNode;
         x.leftNode = y.rightNode; // turn y's right subtree into x's left subtree
         if (y.rightNode != this.nullNode) {
             y.rightNode.parentNode = x;
@@ -240,10 +241,10 @@ public class OrderStatisticTree {
         x.size = x.rightNode.size + x.leftNode.size + 1;
     }
 
-    public void rbInsert(Data d) {
-        RedBlackNode z = new RedBlackNode(d);
-        RedBlackNode y = this.nullNode;
-        RedBlackNode x = this.root;
+    public void osInsert(Data d) {
+        OSNode z = new OSNode(d);
+        OSNode y = this.nullNode;
+        OSNode x = this.root;
         while (x != this.nullNode) {
             y = x;
             if ((z.data.key).compareTo(x.data.key) <= 0) {
@@ -266,13 +267,13 @@ public class OrderStatisticTree {
         z.rightNode = this.nullNode;
         z.color = RED;
         z.size = 1;
-        rbInsertFixup(z);
+        osInsertFixup(z);
     }
 
-    private void rbInsertFixup(RedBlackNode z) {
+    private void osInsertFixup(OSNode z) {
         while (z.parentNode.color == RED) {
             if (z.parentNode == z.parentNode.parentNode.leftNode) {
-                RedBlackNode y = z.parentNode.parentNode.rightNode;
+                OSNode y = z.parentNode.parentNode.rightNode;
                 if (y.color == RED) {
                     z.parentNode.color = BLACK; // case 1
                     y.color = BLACK;
@@ -281,14 +282,14 @@ public class OrderStatisticTree {
                 } else {
                     if (z == z.parentNode.rightNode) {
                         z = z.parentNode; // case 2
-                        rbRotateWithRightChild(z);
+                        osRotateWithRightChild(z);
                     }
                     z.parentNode.color = BLACK; // case 3
                     z.parentNode.parentNode.color = RED;
-                    rbRotateWithLeftChild(z.parentNode.parentNode);
+                    osRotateWithLeftChild(z.parentNode.parentNode);
                 }
             } else {
-                RedBlackNode y = z.parentNode.parentNode.leftNode;
+                OSNode y = z.parentNode.parentNode.leftNode;
                 if (y.color == RED) {
                     z.parentNode.color = BLACK; // case 1
                     y.color = BLACK;
@@ -296,18 +297,18 @@ public class OrderStatisticTree {
                     z = z.parentNode.parentNode;
                 } else if (z == z.parentNode.leftNode) {
                     z = z.parentNode; // case 2
-                    rbRotateWithLeftChild(z);
+                    osRotateWithLeftChild(z);
                 } else {
                     z.parentNode.color = BLACK; // case 3
                     z.parentNode.parentNode.color = RED;
-                    rbRotateWithRightChild(z.parentNode.parentNode);
+                    osRotateWithRightChild(z.parentNode.parentNode);
                 }
             }
         }
         this.root.color = BLACK;
     }
 
-    private void rbTransplant(RedBlackNode u, RedBlackNode v) {
+    private void osTransplant(OSNode u, OSNode v) {
         if (u.parentNode == this.nullNode) {
             this.root = v;
         } else if (u == u.parentNode.leftNode) {
@@ -318,21 +319,21 @@ public class OrderStatisticTree {
         v.parentNode = u.parentNode;
     }
 
-    public void rbDelete(String s) {
-        RedBlackNode z = this.rbTreeSearch(s);
+    public void osDelete(String s) {
+        OSNode z = this.rbTreeSearch(s);
         if (z == this.nullNode) {
             System.out.println("Deletion failed: No such data");
             return;
         }
-        RedBlackNode y = z;
-        RedBlackNode x;
+        OSNode y = z;
+        OSNode x;
         int yOriginalColor = y.color;
         if (z.leftNode == this.nullNode) {
             x = z.rightNode;
-            rbTransplant(z, z.rightNode);
+            osTransplant(z, z.rightNode);
         } else if (z.rightNode == this.nullNode) {
             x = z.leftNode;
-            rbTransplant(z, z.leftNode);
+            osTransplant(z, z.leftNode);
         } else {
             y = rbTreeMinimum(z.rightNode);
             yOriginalColor = y.color;
@@ -340,35 +341,35 @@ public class OrderStatisticTree {
             if (y.parentNode == z) {
                 x.parentNode = y;
             } else {
-                rbTransplant(y, y.rightNode);
+                osTransplant(y, y.rightNode);
                 y.rightNode = z.rightNode;
                 y.rightNode.parentNode = y;
             }
-            rbTransplant(z, y);
+            osTransplant(z, y);
             y.leftNode = z.leftNode;
             y.leftNode.parentNode = y;
             y.color = z.color;
         }
 
-        RedBlackNode m = x; // Maintaining subtree sizes
+        OSNode m = x; // Maintaining subtree sizes
         while (m != this.root) {
             m = m.parentNode;
             m.size -= 1;
         }
 
         if (yOriginalColor == BLACK) {
-            rbDeleteFixup(x);
+            osDeleteFixup(x);
         }
     }
 
-    private void rbDeleteFixup(RedBlackNode x) {
+    private void osDeleteFixup(OSNode x) {
         while (x != this.root && x.color == BLACK) {
             if (x == x.parentNode.leftNode) {
-                RedBlackNode w = x.parentNode.rightNode;
+                OSNode w = x.parentNode.rightNode;
                 if (w.color == RED) {
                     w.color = BLACK; // case 1
                     x.parentNode.color = RED;
-                    rbRotateWithRightChild(x.parentNode);
+                    osRotateWithRightChild(x.parentNode);
                     w = x.parentNode.rightNode;
                 }
                 if (w.leftNode.color == BLACK && w.rightNode.color == BLACK) {
@@ -378,21 +379,21 @@ public class OrderStatisticTree {
                     if (w.rightNode.color == BLACK) {
                         w.leftNode.color = BLACK; // case 3
                         w.color = RED;
-                        rbRotateWithLeftChild(w);
+                        osRotateWithLeftChild(w);
                         w = x.parentNode.rightNode;
                     }
                     w.color = x.parentNode.color; // case 4
                     x.parentNode.color = BLACK;
                     w.rightNode.color = BLACK;
-                    rbRotateWithRightChild(x.parentNode);
+                    osRotateWithRightChild(x.parentNode);
                     x = this.root;
                 }
             } else {
-                RedBlackNode w = x.parentNode.leftNode;
+                OSNode w = x.parentNode.leftNode;
                 if (w.color == RED) {
                     w.color = BLACK; // case 1
                     x.parentNode.color = RED;
-                    rbRotateWithLeftChild(x.parentNode);
+                    osRotateWithLeftChild(x.parentNode);
                     w = x.parentNode.leftNode;
                 }
                 if (w.leftNode.color == BLACK && w.rightNode.color == BLACK) {
@@ -402,13 +403,13 @@ public class OrderStatisticTree {
                     if (w.leftNode.color == BLACK) {
                         w.rightNode.color = BLACK; // case 3
                         w.color = RED;
-                        rbRotateWithRightChild(w);
+                        osRotateWithRightChild(w);
                         w = x.parentNode.leftNode;
                     }
                     w.color = x.parentNode.color; // case 4
                     x.parentNode.color = BLACK;
                     w.leftNode.color = BLACK;
-                    rbRotateWithLeftChild(x.parentNode);
+                    osRotateWithLeftChild(x.parentNode);
                     x = this.root;
                 }
             }
@@ -420,24 +421,24 @@ public class OrderStatisticTree {
         OrderStatisticTree osTree = new OrderStatisticTree();
 
         // Test insert
-        osTree.rbInsert(new Data("j"));
-        osTree.rbInsert(new Data("b"));
-        osTree.rbInsert(new Data("l"));
-        osTree.rbInsert(new Data("d", "ddd"));
-        osTree.rbInsert(new Data("f"));
-        osTree.rbInsert(new Data("h"));
-        osTree.rbInsert(new Data("a"));
-        osTree.rbInsert(new Data("i"));
-        osTree.rbInsert(new Data("g"));
-        osTree.rbInsert(new Data("c"));
-        osTree.rbInsert(new Data("k"));
-        osTree.rbInsert(new Data("e"));
-        osTree.rbInsert(new Data("e")); // duplicated insertion
+        osTree.osInsert(new Data("j"));
+        osTree.osInsert(new Data("b"));
+        osTree.osInsert(new Data("l"));
+        osTree.osInsert(new Data("d", "ddd"));
+        osTree.osInsert(new Data("f"));
+        osTree.osInsert(new Data("h"));
+        osTree.osInsert(new Data("a"));
+        osTree.osInsert(new Data("i"));
+        osTree.osInsert(new Data("g"));
+        osTree.osInsert(new Data("c"));
+        osTree.osInsert(new Data("k"));
+        osTree.osInsert(new Data("e"));
+        osTree.osInsert(new Data("e")); // duplicated insertion
 
         System.out.println("Inorder tree walk: ");
-        osTree.rbPrintTree();
+        osTree.osPrintTree();
         System.out.println("\nPreorder tree walk:");
-        osTree.rbPreorderTreeWalk();
+        osTree.osPreorderTreeWalk();
 
         // Test rank
         System.out.println();
@@ -446,7 +447,7 @@ public class OrderStatisticTree {
 
         // Test search
         System.out.print("\nSearch the node d's satellite data: ");
-        RedBlackNode node = osTree.rbTreeSearch("d");
+        OSNode node = osTree.rbTreeSearch("d");
         if (node.data != null) {
             System.out.println(node.data.satellite + "\n");
         } else {
@@ -454,17 +455,17 @@ public class OrderStatisticTree {
         }
 
         // Test delete
-        osTree.rbDelete("c");
-        osTree.rbDelete("b");
-        osTree.rbDelete("i");
-        osTree.rbDelete("d");
-        osTree.rbDelete("j");
-        osTree.rbDelete("k");
-        osTree.rbDelete("h");
-        osTree.rbDelete("h"); // duplicated deletion
+        osTree.osDelete("c");
+        osTree.osDelete("b");
+        osTree.osDelete("i");
+        osTree.osDelete("d");
+        osTree.osDelete("j");
+        osTree.osDelete("k");
+        osTree.osDelete("h");
+        osTree.osDelete("h"); // duplicated deletion
 
         System.out.println("\nAfter deletion: ");
-        osTree.rbPrintTree();
+        osTree.osPrintTree();
 
         // Test rank
         System.out.println();

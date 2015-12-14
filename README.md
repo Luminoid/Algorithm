@@ -27,6 +27,10 @@ Involving algorithms implemented in Java. Most code are based on *CLRS* and *Dat
     4. Order-statistic Tree (Augmenting red-black trees)
     5. Interval Tree (Augmenting red-black trees)
 
+## Graph Algorithms
+### Elementary Graph Algorithms
+1. 
+
 ## Design and Analysis Techniques
 ### Divide-and-Conquer
 1. Binary search
@@ -56,6 +60,9 @@ Involving algorithms implemented in Java. Most code are based on *CLRS* and *Dat
 ## Problem
 1. [N-Queens](./Problem/src/NQueens/N-Queens.md)
 2. [String Matching](./Problem/src/StringMatching/StringMatching.md)
+3. Matrix Operations
+    1. Solving systems of linear equations by LUP decomposition
+    2. Inverting matrices
 
 ## Other
 1. Finding minimum and maximum simultaneously
