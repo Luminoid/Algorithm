@@ -13,7 +13,7 @@ public class BreadthFirstSearch {
     static HashMap<Vertex, Integer> discoveryTime = new HashMap<>();
     static HashMap<Vertex, Vertex> predecessor = new HashMap<>();
 
-    public void BFS(Vertex v1) {
+    public static void BFS(Vertex v1) {
         color.put(v1, Color.GRAY);
         discoveryTime.put(v1, 0);
         predecessor.put(v1, null);
@@ -22,21 +22,20 @@ public class BreadthFirstSearch {
 
         while (list.size() != 0) {
             Vertex u = list.remove(0);
-            u.getEdges().forEach((e) -> {
-                        Vertex v = e.getEnd();
-                        if (color.get(v) == null) { // Color.WHITE
-                            color.put(v, Color.GRAY);
-                            discoveryTime.put(v, discoveryTime.get(u) + 1);
-                            predecessor.put(v, u);
-                            list.add(v);
-                        }
-                    }
-            );
+            for (Edge e : u.getEdges()) {
+                Vertex v = e.getEnd();
+                if (color.get(v) == null) { // Color.WHITE
+                    color.put(v, Color.GRAY);
+                    discoveryTime.put(v, discoveryTime.get(u) + 1);
+                    predecessor.put(v, u);
+                    list.add(v);
+                }
+            }
             color.put(u, Color.BLACK);
         }
     }
 
-    public void printPath(Vertex s, Vertex v) {
+    public static void printPath(Vertex s, Vertex v) {
         System.out.println("The path from " + s.getLabel() + " to " + v.getLabel() + " is:");
         String ret = "";
         while (predecessor.get(v) != null) {
@@ -69,15 +68,9 @@ public class BreadthFirstSearch {
         v7.addEdge(v4).addEdge(v5).addEdge(v6).addEdge(v8);
         v8.addEdge(v6).addEdge(v7);
 
-        Graph g = new Graph();
-        g.addVertex(v1).addVertex(v2).addVertex(v3).addVertex(v4)
-                .addVertex(v5).addVertex(v6).addVertex(v7).addVertex(v8);
-        BreadthFirstSearch breadthFirstSearch = new BreadthFirstSearch();
-        breadthFirstSearch.BFS(v1);
-        breadthFirstSearch.printPath(v1, v6);
-        breadthFirstSearch.printPath(v1, v8);
-        breadthFirstSearch.printPath(v6, v7);
+        BFS(v1);
+        printPath(v1, v6);
+        printPath(v1, v8);
+        printPath(v6, v7);
     }
-
-
 }

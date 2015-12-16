@@ -29,7 +29,8 @@ Involving algorithms implemented in Java. Most code are based on *CLRS* and *Dat
 
 ## Graph Algorithms
 ### Elementary Graph Algorithms
-1. 
+1. Breadth-first search
+2. Depth-first search
 
 ## Design and Analysis Techniques
 ### Divide-and-Conquer

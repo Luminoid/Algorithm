@@ -1,13 +1,13 @@
 package ElementaryGraphAlgorithms;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  * Created by Ethan on 15/12/15.
  */
 public class Vertex {
     private String label;
-    private LinkedList<Edge> edges;
+    private ArrayList<Edge> edges;
 
     public Vertex() {
 
@@ -15,7 +15,7 @@ public class Vertex {
 
     public Vertex(String label) {
         this.label = label;
-        edges = new LinkedList<>();
+        edges = new ArrayList<>();
     }
 
     public Vertex addEdge(Vertex end) {
@@ -27,7 +27,7 @@ public class Vertex {
         return label;
     }
 
-    public LinkedList<Edge> getEdges() {
+    public ArrayList<Edge> getEdges() {
         return edges;
     }
 
