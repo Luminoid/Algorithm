@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 /**
  * Created by Ethan on 15/11/17.
- * <p/>
+ * <p>
  * Rod-cutting problem: Given a rod of length n inches and a table of prices p_i for i = 1, 2, ... , n, determine the
  * maximum revenue r_n obtainable by cutting up the rod and selling the pieces.
  * Two equivalent ways to implement a dynamic-programming approach:
@@ -34,6 +34,7 @@ public class RodCutting {
         for (int i = 1; i <= n; i++) {
             int q = Integer.MIN_VALUE;
             for (int j = 1; j <= i; j++) {
+                // the optimal solution uses one subproblem
                 if (q < p[j - 1] + r[i - j]) {
                     q = p[j - 1] + r[i - j];
                     s[i] = j;

@@ -61,6 +61,10 @@ Involving algorithms implemented in Java. Most code are based on *CLRS* and *Dat
 ## Problem
 1. [N-Queens](./Problem/src/NQueens/N-Queens.md)
 2. [String Matching](./Problem/src/StringMatching/StringMatching.md)
+    1. The naive string-matching algorithm.
+    2. The Rabin-Karp algorithm.
+    3. String matching with finite automata.
+    4. The Knuth-Morris-Pratt algorithm.
 3. Matrix Operations
     1. Solving systems of linear equations by LUP decomposition
     2. Inverting matrices
