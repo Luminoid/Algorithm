@@ -53,6 +53,12 @@ Involving algorithms implemented in Java. Most code are based on *CLRS* and *Dat
 2. Matrix-chain multiplication
 3. Longest-common-subsequence problem
 
+### Greedy Algorithms
+1. Activity-selection problem
+
+### Amortized Analysis
+
+
 ## Multithreaded Algorithms
 ### Dynamic Multithreading
 1. Computing Fibonacci numbers recursively
