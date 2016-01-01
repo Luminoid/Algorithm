@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Created by Ethan on 16/1/1.
  * Activity-selection problem: scheduling several competing activities that require exclusive use of a common resource,
  * with a goal of selecting a maximum-size set of mutually compatible activities.
+ * It assumes that the input activities are ordered by monotonically increasing finish time.
  */
 public class ActivitySelectionProblem {
     public static class Activity {

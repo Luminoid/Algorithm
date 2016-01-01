@@ -16,7 +16,7 @@ import java.util.Arrays;
  */
 public class RodCutting {
 
-    public static class Solution {
+    private static class Solution {
         int[] r;
         int[] s;
 

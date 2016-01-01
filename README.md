@@ -55,6 +55,7 @@ Involving algorithms implemented in Java. Most code are based on *CLRS* and *Dat
 
 ### Greedy Algorithms
 1. Activity-selection problem
+2. Huffman codes
 
 ### Amortized Analysis
 
