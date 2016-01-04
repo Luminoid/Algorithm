@@ -2,6 +2,7 @@ package KnapsackProblem;
 
 /**
  * Created by Ethan on 16/1/4.
+ * Using dynamic programming to solve 0-1 Knapsack Problem
  */
 public class Dynamic01Knapsack {
     /**
@@ -9,7 +10,7 @@ public class Dynamic01Knapsack {
      * @param weight the weight of items
      * @param n      the number of items
      * @param W      the maximum weight
-     * @return the optimal solution
+     * @return the optimal value
      */
     public static int dynamic01Knapsack(int value[], int weight[], int n, int W) {
         int[][] c = new int[n + 1][W + 1];
