@@ -57,24 +57,24 @@ Involving algorithms implemented in Java. Most code are based on *CLRS* and *Dat
 1. Activity-selection problem
 2. Huffman codes
 
-### Amortized Analysis
-
-
 ## Multithreaded Algorithms
 ### Dynamic Multithreading
 1. Computing Fibonacci numbers recursively
 2. [Multithreaded merge sort](./MultithreadedAlgorithms/src/DynamicMultithreading/MergeSort/MultithreadedMergeSort.md)
 
 ## Problem
-1. [N-Queens](./Problem/src/NQueens/N-Queens.md)
-2. [String Matching](./Problem/src/StringMatching/StringMatching.md)
+1. [String Matching](./Problem/src/StringMatching/StringMatching.md)
     1. The naive string-matching algorithm.
     2. The Rabin-Karp algorithm.
     3. String matching with finite automata.
     4. The Knuth-Morris-Pratt algorithm.
+2. [Knapsack problem](./Problem/src/KnapsackProblem/KnapsackProblem.md)
+    1. 0-1 Knapsack Problem
+    2. Fractional Knapsack Problem
 3. Matrix Operations
     1. Solving systems of linear equations by LUP decomposition
     2. Inverting matrices
+4. [N-Queens](./Problem/src/NQueens/N-Queens.md)
 
 ## Other
 1. Finding minimum and maximum simultaneously
